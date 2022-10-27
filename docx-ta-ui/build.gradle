@@ -1,0 +1,23 @@
+dependencies {
+  implementation project(":docx-ta")
+
+  // openflexo dep
+  implementation flexoUi()
+  implementation flexoDocumentationUi()
+  // external dep
+  // testing dep
+  testImplementation flexoUiTest()
+  testImplementation flexoFoundationTest()
+
+  // Test resource center
+  testRuntimeOnly project(':docx-ta-test-rc')
+}
+if (JavaVersion.current().isJava9Compatible()) {
+    tasks.withType(JavaCompile) {
+	options.compilerArgs.addAll(['--add-modules', 'java.xml.bind'])
+    }
+
+    tasks.withType(Test) {
+	jvmArgs += ['--add-modules', 'java.xml.bind']
+    }
+}
