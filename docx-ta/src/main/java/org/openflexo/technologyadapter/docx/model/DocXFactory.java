@@ -79,7 +79,7 @@ import org.openflexo.foundation.doc.FlexoParagraphStyle.ParagraphIndent;
 import org.openflexo.foundation.doc.FlexoParagraphStyle.ParagraphNumbering;
 import org.openflexo.foundation.doc.FlexoParagraphStyle.ParagraphSpacing;
 import org.openflexo.foundation.doc.FlexoParagraphStyle.ParagraphSpacing.LineSpacingRule;
-import org.openflexo.pamela.ModelContextLibrary;
+import org.openflexo.pamela.PamelaMetaModelLibrary;
 import org.openflexo.pamela.exceptions.ModelDefinitionException;
 import org.openflexo.pamela.factory.EditingContext;
 import org.openflexo.foundation.doc.FlexoParagraphStyle.ParagraphTab;
@@ -106,7 +106,7 @@ public class DocXFactory extends DocumentFactory<DocXDocument, DocXTechnologyAda
 
 	public DocXFactory(DocXDocumentResource resource, EditingContext editingContext, IdentifierManagementStrategy idStrategy)
 			throws ModelDefinitionException {
-		super(ModelContextLibrary.getCompoundModelContext(DocXDocument.class, DocXFragment.class, NamedDocXStyle.class), resource,
+		super(PamelaMetaModelLibrary.getCompoundModelContext(DocXDocument.class, DocXFragment.class, NamedDocXStyle.class), resource,
 				editingContext);
 		this.idStrategy = idStrategy;
 	}

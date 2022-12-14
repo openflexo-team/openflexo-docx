@@ -47,7 +47,7 @@ import org.openflexo.foundation.doc.FlexoDocFragment.FragmentConsistencyExceptio
 import org.openflexo.foundation.fml.FMLModelFactory;
 import org.openflexo.foundation.resource.FlexoResource;
 import org.openflexo.foundation.resource.ResourceLoadingCancelledException;
-import org.openflexo.pamela.factory.ModelFactory;
+import org.openflexo.pamela.factory.PamelaModelFactory;
 import org.openflexo.pamela.model.StringConverterLibrary.Converter;
 import org.openflexo.technologyadapter.docx.DocXTechnologyAdapter;
 
@@ -68,7 +68,7 @@ public class DocXFragmentConverter extends Converter<DocXFragment> {
 	}
 
 	@Override
-	public DocXFragment convertFromString(String value, ModelFactory factory) {
+	public DocXFragment convertFromString(String value, PamelaModelFactory factory) {
 		int endSeparatorIndex = value.lastIndexOf(":");
 		int startSeparatorIndex = value.substring(0, endSeparatorIndex).lastIndexOf(":");
 

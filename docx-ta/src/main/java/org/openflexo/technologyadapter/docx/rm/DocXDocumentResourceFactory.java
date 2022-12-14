@@ -78,8 +78,8 @@ public class DocXDocumentResourceFactory
 	/*public static DocXDocumentResource makeDocXDocumentResource(File modelFile, DocXTechnologyContextManager technologyContextManager,
 	FlexoResourceCenter<?> resourceCenter, IdentifierManagementStrategy idStrategy) {
 	try {
-	ModelFactory factory = new ModelFactory(
-			ModelContextLibrary.getCompoundModelContext(DocXDocumentResource.class, FileFlexoIODelegate.class));
+	PamelaModelFactory factory = new PamelaModelFactory(
+			PamelaMetaModelLibrary.getCompoundModelContext(DocXDocumentResource.class, FileFlexoIODelegate.class));
 	DocXDocumentResourceImpl returned = (DocXDocumentResourceImpl) factory.newInstance(DocXDocumentResource.class);
 	returned.initName(modelFile.getName());
 	returned.setFlexoIODelegate(FileFlexoIODelegateImpl.makeFileFlexoIODelegate(modelFile, factory));
@@ -104,8 +104,8 @@ public class DocXDocumentResourceFactory
 	public static DocXDocumentResource retrieveDocXDocumentResource(File modelFile, DocXTechnologyContextManager technologyContextManager,
 	FlexoResourceCenter<?> resourceCenter, IdentifierManagementStrategy idStrategy) {
 	try {
-	ModelFactory factory = new ModelFactory(
-			ModelContextLibrary.getCompoundModelContext(DocXDocumentResource.class, FileFlexoIODelegate.class));
+	PamelaModelFactory factory = new PamelaModelFactory(
+			PamelaMetaModelLibrary.getCompoundModelContext(DocXDocumentResource.class, FileFlexoIODelegate.class));
 	DocXDocumentResourceImpl returned = (DocXDocumentResourceImpl) factory.newInstance(DocXDocumentResource.class);
 	returned.initName(modelFile.getName());
 	returned.setFlexoIODelegate(FileFlexoIODelegateImpl.makeFileFlexoIODelegate(modelFile, factory));
@@ -130,8 +130,8 @@ public class DocXDocumentResourceFactory
 	public static DocXDocumentResource retrieveDocXDocumentResource(InJarResourceImpl jarResource,
 	DocXTechnologyContextManager technologyContextManager, FlexoResourceCenter<?> resourceCenter,
 	IdentifierManagementStrategy idStrategy) {	try {
-		ModelFactory factory = new ModelFactory(
-				ModelContextLibrary.getCompoundModelContext(DocXDocumentResource.class, InJarFlexoIODelegate.class));
+		PamelaModelFactory factory = new PamelaModelFactory(
+				PamelaMetaModelLibrary.getCompoundModelContext(DocXDocumentResource.class, InJarFlexoIODelegate.class));
 		DocXDocumentResourceImpl returned = (DocXDocumentResourceImpl) factory.newInstance(DocXDocumentResource.class);
 		returned.initName(jarResource.getURL().getFile());
 		returned.setFlexoIODelegate(InJarFlexoIODelegateImpl.makeInJarFlexoIODelegate(jarResource, factory));
