@@ -106,7 +106,7 @@ public class DocXFactory extends DocumentFactory<DocXDocument, DocXTechnologyAda
 
 	public DocXFactory(DocXDocumentResource resource, EditingContext editingContext, IdentifierManagementStrategy idStrategy)
 			throws ModelDefinitionException {
-		super(PamelaMetaModelLibrary.getCompoundModelContext(DocXDocument.class, DocXFragment.class, NamedDocXStyle.class), resource,
+		super(PamelaMetaModelLibrary.retrieveMetaModel(DocXDocument.class, DocXFragment.class, NamedDocXStyle.class), resource,
 				editingContext);
 		this.idStrategy = idStrategy;
 	}
