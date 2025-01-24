@@ -314,7 +314,8 @@ public class TestControlledDocumentVirtualModel extends AbstractTestDocX {
 		assertTrue(ResourceLocator.retrieveResourceAsFile(virtualModel.getResource().getDirectory()).exists());
 		assertTrue(virtualModel.getResource().getIODelegate().exists());
 
-		AddUseDeclaration useDeclarationAction = AddUseDeclaration.actionType.makeNewAction(virtualModel, null, _editor);
+		AddUseDeclaration useDeclarationAction = AddUseDeclaration.actionType.makeNewAction(virtualModel.getCompilationUnit(), null,
+				_editor);
 		useDeclarationAction.setModelSlotClass(DocXModelSlot.class);
 		useDeclarationAction.doAction();
 
