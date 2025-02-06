@@ -83,9 +83,9 @@ import org.openflexo.foundation.fml.editionaction.AssignationAction;
 import org.openflexo.foundation.fml.editionaction.ExpressionAction;
 import org.openflexo.foundation.fml.rm.CompilationUnitResource;
 import org.openflexo.foundation.fml.rm.CompilationUnitResourceFactory;
-import org.openflexo.foundation.fml.rt.FMLRTModelSlot;
+import org.openflexo.foundation.fml.rt.AbstractFMLRTModelSlot;
 import org.openflexo.foundation.fml.rt.FMLRTVirtualModelInstance;
-import org.openflexo.foundation.fml.rt.FMLRTVirtualModelInstanceModelSlot;
+import org.openflexo.foundation.fml.rt.FMLRTModelSlot;
 import org.openflexo.foundation.fml.rt.FlexoConceptInstance;
 import org.openflexo.foundation.fml.rt.FreeModelSlotInstance;
 import org.openflexo.foundation.fml.rt.ModelSlotInstance;
@@ -168,7 +168,7 @@ public class TestLibraryUsingBookmarks extends AbstractTestDocX {
 	public static FlexoBehaviourParameter titleParam, authorParam, editionParam, typeParam, descriptionParam;
 
 	public static VirtualModel documentVirtualModel;
-	public static FMLRTModelSlot<?, ?> libraryModelSlot;
+	public static AbstractFMLRTModelSlot<?, ?> libraryModelSlot;
 	public static DocXModelSlot docXModelSlot;
 	public static DocXFragmentRole introductionFragmentRole;
 	public static DocXFragmentRole booksDescriptionFragmentRole;
@@ -586,12 +586,12 @@ public class TestLibraryUsingBookmarks extends AbstractTestDocX {
 		CreateModelSlot createLibraryModelSlot = CreateModelSlot.actionType.makeNewAction(documentVirtualModel, null, _editor);
 		createLibraryModelSlot
 				.setTechnologyAdapter(serviceManager.getTechnologyAdapterService().getTechnologyAdapter(FMLTechnologyAdapter.class));
-		createLibraryModelSlot.setModelSlotClass(FMLRTVirtualModelInstanceModelSlot.class);
+		createLibraryModelSlot.setModelSlotClass(FMLRTModelSlot.class);
 		createLibraryModelSlot.setModelSlotName("library");
 		createLibraryModelSlot.setVmRes(libraryVirtualModel.getResource());
 		createLibraryModelSlot.doAction();
 		assertTrue(createLibraryModelSlot.hasActionExecutionSucceeded());
-		assertNotNull(libraryModelSlot = (FMLRTModelSlot<?, ?>) createLibraryModelSlot.getNewModelSlot());
+		assertNotNull(libraryModelSlot = (AbstractFMLRTModelSlot<?, ?>) createLibraryModelSlot.getNewModelSlot());
 
 		// Then we create the docx model slot
 		CreateModelSlot createDocumentModelSlot = CreateModelSlot.actionType.makeNewAction(documentVirtualModel, null, _editor);
@@ -1189,8 +1189,8 @@ public class TestLibraryUsingBookmarks extends AbstractTestDocX {
 
 		assertEquals(2, documentVirtualModel.getModelSlots().size());
 
-		assertEquals(1, documentVirtualModel.getModelSlots(FMLRTModelSlot.class).size());
-		FMLRTModelSlot libraryModelSlot = documentVirtualModel.getModelSlots(FMLRTModelSlot.class).get(0);
+		assertEquals(1, documentVirtualModel.getModelSlots(AbstractFMLRTModelSlot.class).size());
+		AbstractFMLRTModelSlot libraryModelSlot = documentVirtualModel.getModelSlots(AbstractFMLRTModelSlot.class).get(0);
 		assertNotNull(libraryModelSlot);
 
 		assertEquals(1, documentVirtualModel.getModelSlots(DocXModelSlot.class).size());
