@@ -84,8 +84,8 @@ import org.openflexo.foundation.fml.editionaction.ExpressionAction;
 import org.openflexo.foundation.fml.rm.CompilationUnitResource;
 import org.openflexo.foundation.fml.rm.CompilationUnitResourceFactory;
 import org.openflexo.foundation.fml.rt.AbstractFMLRTModelSlot;
-import org.openflexo.foundation.fml.rt.FMLRTVirtualModelInstance;
 import org.openflexo.foundation.fml.rt.FMLRTModelSlot;
+import org.openflexo.foundation.fml.rt.FMLRTVirtualModelInstance;
 import org.openflexo.foundation.fml.rt.FlexoConceptInstance;
 import org.openflexo.foundation.fml.rt.FreeModelSlotInstance;
 import org.openflexo.foundation.fml.rt.ModelSlotInstance;
@@ -1258,7 +1258,7 @@ public class TestLibraryUsingBookmarks extends AbstractTestDocX {
 
 		System.out.println(vmiRes.getFactory().stringRepresentation(vmiRes.getLoadedResourceData()));
 
-		FreeModelSlotInstance<DocXDocument, DocXModelSlot> docXMSInstance = (FreeModelSlotInstance<DocXDocument, DocXModelSlot>) documentVMI
+		FreeModelSlotInstance<DocXModelSlot, DocXDocument> docXMSInstance = (FreeModelSlotInstance<DocXModelSlot, DocXDocument>) documentVMI
 				.getModelSlotInstances().get(1);
 		assertNotNull(docXMSInstance);
 
@@ -1334,7 +1334,7 @@ public class TestLibraryUsingBookmarks extends AbstractTestDocX {
 
 		System.out.println(vmiRes.getFactory().stringRepresentation(vmiRes.getLoadedResourceData()));
 
-		FreeModelSlotInstance<DocXDocument, DocXModelSlot> docXMSInstance = (FreeModelSlotInstance<DocXDocument, DocXModelSlot>) documentVMI
+		FreeModelSlotInstance<DocXModelSlot, DocXDocument> docXMSInstance = (FreeModelSlotInstance<DocXModelSlot, DocXDocument>) documentVMI
 				.getModelSlotInstances().get(1);
 		assertNotNull(docXMSInstance);
 
