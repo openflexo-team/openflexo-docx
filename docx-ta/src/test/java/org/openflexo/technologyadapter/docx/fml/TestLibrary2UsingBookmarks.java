@@ -181,7 +181,7 @@ public class TestLibrary2UsingBookmarks extends AbstractTestDocX {
 	public static FlexoBehaviourParameter titleParam, authorParam, editionParam, typeParam, descriptionParam;
 
 	public static VirtualModel documentVirtualModel;
-	public static AbstractFMLRTModelSlot<?, ?> libraryModelSlot;
+	public static AbstractFMLRTModelSlot<?, ?, ?> libraryModelSlot;
 	public static DocXModelSlot docXModelSlot;
 
 	public static GetSetProperty<?> allBooksProperty;
@@ -679,7 +679,7 @@ public class TestLibrary2UsingBookmarks extends AbstractTestDocX {
 		createLibraryModelSlot.setVmRes(libraryVirtualModel.getResource());
 		createLibraryModelSlot.doAction();
 		assertTrue(createLibraryModelSlot.hasActionExecutionSucceeded());
-		assertNotNull(libraryModelSlot = (AbstractFMLRTModelSlot<?, ?>) createLibraryModelSlot.getNewModelSlot());
+		assertNotNull(libraryModelSlot = (AbstractFMLRTModelSlot<?, ?, ?>) createLibraryModelSlot.getNewModelSlot());
 
 		// Then we create the docx model slot
 		CreateModelSlot createDocumentModelSlot = CreateModelSlot.actionType.makeNewAction(documentVirtualModel, null, _editor);
@@ -1441,7 +1441,7 @@ public class TestLibrary2UsingBookmarks extends AbstractTestDocX {
 
 		System.out.println(vmiRes.getFactory().stringRepresentation(vmiRes.getLoadedResourceData()));
 
-		FreeModelSlotInstance<DocXModelSlot, DocXDocument> docXMSInstance = (FreeModelSlotInstance<DocXModelSlot, DocXDocument>) documentVMI
+		FreeModelSlotInstance<DocXModelSlot, DocXDocumentResource, DocXDocument> docXMSInstance = (FreeModelSlotInstance<DocXModelSlot, DocXDocumentResource, DocXDocument>) documentVMI
 				.getModelSlotInstances().get(1);
 		assertNotNull(docXMSInstance);
 
@@ -1524,7 +1524,7 @@ public class TestLibrary2UsingBookmarks extends AbstractTestDocX {
 
 		System.out.println(vmiRes.getFactory().stringRepresentation(vmiRes.getLoadedResourceData()));
 
-		FreeModelSlotInstance<DocXModelSlot, DocXDocument> docXMSInstance = (FreeModelSlotInstance<DocXModelSlot, DocXDocument>) documentVMI
+		FreeModelSlotInstance<DocXModelSlot, DocXDocumentResource, DocXDocument> docXMSInstance = (FreeModelSlotInstance<DocXModelSlot, DocXDocumentResource, DocXDocument>) documentVMI
 				.getModelSlotInstances().get(1);
 		assertNotNull(docXMSInstance);
 

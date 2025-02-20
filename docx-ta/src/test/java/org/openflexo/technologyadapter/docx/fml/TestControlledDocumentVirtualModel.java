@@ -517,7 +517,7 @@ public class TestControlledDocumentVirtualModel extends AbstractTestDocX {
 
 		System.out.println(vmiRes.getFactory().stringRepresentation(vmiRes.getLoadedResourceData()));
 
-		FreeModelSlotInstance<DocXModelSlot, DocXDocument> docXMSInstance = (FreeModelSlotInstance<DocXModelSlot, DocXDocument>) newVirtualModelInstance
+		FreeModelSlotInstance<DocXModelSlot, DocXDocumentResource, DocXDocument> docXMSInstance = (FreeModelSlotInstance<DocXModelSlot, DocXDocumentResource, DocXDocument>) newVirtualModelInstance
 				.getModelSlotInstances().get(0);
 		assertNotNull(docXMSInstance);
 

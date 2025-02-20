@@ -82,7 +82,7 @@ import org.openflexo.toolbox.StringUtils;
 @ModelEntity
 @ImplementationClass(DocXModelSlot.DocXModelSlotImpl.class)
 @XMLElement
-public interface DocXModelSlot extends FlexoDocumentModelSlot<DocXDocument> {
+public interface DocXModelSlot extends FlexoDocumentModelSlot<DocXDocument, DocXDocumentResource, DocXTechnologyAdapter> {
 
 	@PropertyIdentifier(type = FlexoResource.class)
 	public static final String TEMPLATE_RESOURCE_KEY = "templateResource";
@@ -105,7 +105,8 @@ public interface DocXModelSlot extends FlexoDocumentModelSlot<DocXDocument> {
 	public void setIdStrategy(IdentifierManagementStrategy idStrat);
 
 	// Implem
-	public static abstract class DocXModelSlotImpl extends FlexoDocumentModelSlotImpl<DocXDocument> implements DocXModelSlot {
+	public static abstract class DocXModelSlotImpl
+			extends FlexoDocumentModelSlotImpl<DocXDocument, DocXDocumentResource, DocXTechnologyAdapter> implements DocXModelSlot {
 
 		private static final Logger logger = Logger.getLogger(DocXModelSlot.class.getPackage().getName());
 
