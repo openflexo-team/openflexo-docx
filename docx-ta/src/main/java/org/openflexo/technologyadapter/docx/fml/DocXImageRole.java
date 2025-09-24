@@ -24,6 +24,7 @@ import java.lang.reflect.Type;
 
 import org.openflexo.foundation.doc.FlexoDocFragment.FragmentConsistencyException;
 import org.openflexo.foundation.doc.fml.FlexoImageRole;
+import org.openflexo.foundation.fml.annotations.FML;
 import org.openflexo.foundation.technologyadapter.TechnologyAdapter;
 import org.openflexo.pamela.annotations.ImplementationClass;
 import org.openflexo.pamela.annotations.ModelEntity;
@@ -37,6 +38,7 @@ import org.openflexo.technologyadapter.docx.model.DocXFragment;
 @ModelEntity
 @ImplementationClass(DocXImageRole.DocXImageRoleImpl.class)
 @XMLElement
+@FML("DocXImageRole")
 public interface DocXImageRole extends FlexoImageRole<DocXDrawingRun, DocXDocument, DocXTechnologyAdapter> {
 
 	public static final String IMAGE_FRAGMENT_KEY = "imageFragment";

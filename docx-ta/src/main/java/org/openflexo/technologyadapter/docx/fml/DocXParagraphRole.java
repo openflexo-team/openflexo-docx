@@ -23,6 +23,7 @@ package org.openflexo.technologyadapter.docx.fml;
 import java.lang.reflect.Type;
 
 import org.openflexo.foundation.doc.fml.FlexoParagraphRole;
+import org.openflexo.foundation.fml.annotations.FML;
 import org.openflexo.foundation.technologyadapter.TechnologyAdapter;
 import org.openflexo.pamela.annotations.ImplementationClass;
 import org.openflexo.pamela.annotations.ModelEntity;
@@ -34,6 +35,7 @@ import org.openflexo.technologyadapter.docx.model.DocXParagraph;
 @ModelEntity
 @ImplementationClass(DocXParagraphRole.DocXParagraphRoleImpl.class)
 @XMLElement
+@FML("DocXParagraphRole")
 public interface DocXParagraphRole extends FlexoParagraphRole<DocXParagraph, DocXDocument, DocXTechnologyAdapter> {
 
 	public static abstract class DocXParagraphRoleImpl extends FlexoParagraphRoleImpl<DocXParagraph, DocXDocument, DocXTechnologyAdapter>

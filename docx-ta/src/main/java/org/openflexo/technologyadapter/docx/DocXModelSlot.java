@@ -32,7 +32,9 @@ import org.openflexo.foundation.doc.fml.TextSelectionActorReference;
 import org.openflexo.foundation.fml.FlexoRole;
 import org.openflexo.foundation.fml.annotations.DeclareActorReferences;
 import org.openflexo.foundation.fml.annotations.DeclareEditionActions;
+import org.openflexo.foundation.fml.annotations.DeclareFetchRequests;
 import org.openflexo.foundation.fml.annotations.DeclareFlexoRoles;
+import org.openflexo.foundation.fml.annotations.FML;
 import org.openflexo.foundation.resource.FlexoResource;
 import org.openflexo.pamela.annotations.Getter;
 import org.openflexo.pamela.annotations.ImplementationClass;
@@ -55,9 +57,11 @@ import org.openflexo.technologyadapter.docx.fml.editionaction.GenerateDocXImage;
 import org.openflexo.technologyadapter.docx.fml.editionaction.GenerateDocXTable;
 import org.openflexo.technologyadapter.docx.fml.editionaction.ReinjectFromDocXTable;
 import org.openflexo.technologyadapter.docx.fml.editionaction.ReinjectTextBindings;
+import org.openflexo.technologyadapter.docx.fml.editionaction.SelectDocXParagraph;
 import org.openflexo.technologyadapter.docx.fml.editionaction.SelectGeneratedDocXFragment;
 import org.openflexo.technologyadapter.docx.fml.editionaction.SelectGeneratedDocXImage;
 import org.openflexo.technologyadapter.docx.fml.editionaction.SelectGeneratedDocXTable;
+import org.openflexo.technologyadapter.docx.fml.editionaction.SelectUniqueDocXParagraph;
 import org.openflexo.technologyadapter.docx.model.DocXDocument;
 import org.openflexo.technologyadapter.docx.model.IdentifierManagementStrategy;
 import org.openflexo.technologyadapter.docx.rm.DocXDocumentResource;
@@ -77,11 +81,13 @@ import org.openflexo.toolbox.StringUtils;
 @DeclareEditionActions({ GenerateDocXDocument.class, AddDocXFragment.class, AddDocXParagraph.class, ApplyTextBindings.class,
 		ReinjectTextBindings.class, SelectGeneratedDocXFragment.class, GenerateDocXTable.class, ReinjectFromDocXTable.class,
 		SelectGeneratedDocXTable.class, GenerateDocXImage.class, SelectGeneratedDocXImage.class, CreateEmptyDocXResource.class })
+@DeclareFetchRequests({ SelectDocXParagraph.class, SelectUniqueDocXParagraph.class })
 @DeclareActorReferences({ FragmentActorReference.class, TableActorReference.class, ParagraphActorReference.class, ImageActorReference.class,
 		TextSelectionActorReference.class })
 @ModelEntity
 @ImplementationClass(DocXModelSlot.DocXModelSlotImpl.class)
 @XMLElement
+@FML("DocXModelSlot")
 public interface DocXModelSlot extends FlexoDocumentModelSlot<DocXDocument, DocXDocumentResource, DocXTechnologyAdapter> {
 
 	@PropertyIdentifier(type = FlexoResource.class)

@@ -46,6 +46,7 @@ import org.openflexo.foundation.doc.FlexoDocParagraph;
 import org.openflexo.foundation.doc.FlexoDocRun;
 import org.openflexo.foundation.doc.NamedDocStyle;
 import org.openflexo.pamela.annotations.CloningStrategy;
+import org.openflexo.pamela.annotations.CloningStrategy.StrategyType;
 import org.openflexo.pamela.annotations.Getter;
 import org.openflexo.pamela.annotations.ImplementationClass;
 import org.openflexo.pamela.annotations.Import;
@@ -54,7 +55,6 @@ import org.openflexo.pamela.annotations.ModelEntity;
 import org.openflexo.pamela.annotations.PropertyIdentifier;
 import org.openflexo.pamela.annotations.Setter;
 import org.openflexo.pamela.annotations.XMLElement;
-import org.openflexo.pamela.annotations.CloningStrategy.StrategyType;
 import org.openflexo.technologyadapter.docx.DocXTechnologyAdapter;
 import org.openflexo.technologyadapter.docx.model.DocXDocument.DocXDocumentImpl;
 import org.openflexo.technologyadapter.docx.rm.DocXDocumentResource;
@@ -112,6 +112,10 @@ public interface DocXParagraph extends DocXElement<P>, FlexoDocParagraph<DocXDoc
 	public DocXRun getRun(R r);
 
 	public DocXFactory getFactory();
+
+	public DocXParagraph nextParagraph();
+
+	public DocXTable nextTable();
 
 	public static abstract class DocXParagraphImpl extends FlexoDocParagraphImpl<DocXDocument, DocXTechnologyAdapter>
 			implements DocXParagraph {
@@ -705,6 +709,16 @@ public interface DocXParagraph extends DocXElement<P>, FlexoDocParagraph<DocXDoc
 		@Override
 		public DocXRun getRun(R r) {
 			return runs.get(r);
+		}
+
+		@Override
+		public DocXParagraph nextParagraph() {
+			return getNextElement(DocXParagraph.class);
+		}
+
+		@Override
+		public DocXTable nextTable() {
+			return getNextElement(DocXTable.class);
 		}
 
 	}

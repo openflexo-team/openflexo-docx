@@ -24,6 +24,7 @@ import java.lang.reflect.Type;
 
 import org.openflexo.connie.type.TypeUtils;
 import org.openflexo.foundation.doc.fml.FlexoFragmentRole;
+import org.openflexo.foundation.fml.annotations.FML;
 import org.openflexo.foundation.technologyadapter.TechnologyAdapter;
 import org.openflexo.pamela.annotations.Getter;
 import org.openflexo.pamela.annotations.ImplementationClass;
@@ -39,6 +40,7 @@ import org.openflexo.technologyadapter.docx.model.DocXFragment;
 @ModelEntity
 @ImplementationClass(DocXFragmentRole.DocXFragmentRoleImpl.class)
 @XMLElement
+@FML("DocXFragmentRole")
 public interface DocXFragmentRole extends FlexoFragmentRole<DocXFragment, DocXDocument, DocXTechnologyAdapter> {
 
 	// @PropertyIdentifier(type = DocXFragment.class)
