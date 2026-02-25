@@ -93,7 +93,6 @@ import org.openflexo.foundation.fml.rt.action.ActionSchemeAction;
 import org.openflexo.foundation.fml.rt.action.ActionSchemeActionFactory;
 import org.openflexo.foundation.fml.rt.action.CreateBasicVirtualModelInstance;
 import org.openflexo.foundation.fml.rt.action.CreationSchemeAction;
-import org.openflexo.foundation.fml.rt.editionaction.CreateFlexoConceptInstanceParameter;
 import org.openflexo.foundation.fml.rt.editionaction.MatchFlexoConceptInstance;
 import org.openflexo.foundation.fml.rt.editionaction.MatchingCriteria;
 import org.openflexo.foundation.fml.rt.editionaction.SelectFlexoConceptInstance;
@@ -968,13 +967,17 @@ public class TestLibrary extends AbstractTestDocX {
 		assertTrue(bookCriteria.getValue().isValid());
 
 		// We check here that creation parameters were updated
-		assertEquals(1, matchFlexoConceptInstance.getParameters().size());
+		assertEquals(1, matchFlexoConceptInstance.getNewInstanceArguments().size());
 
-		CreateFlexoConceptInstanceParameter bookParam = matchFlexoConceptInstance
+		/*CreateFlexoConceptInstanceParameter bookParam = matchFlexoConceptInstance
 				.getParameter(bookDescriptionSection.getCreationSchemes().get(0).getParameters().get(0));
 		assertNotNull(bookParam);
 		bookParam.setValue(new DataBinding<>("book"));
-		assertTrue(bookParam.getValue().isValid());
+		assertTrue(bookParam.getValue().isValid());*/
+
+		FlexoBehaviourParameter parameter = bookDescriptionSection.getCreationSchemes().get(0).getParameters().get(0);
+		matchFlexoConceptInstance.setNewInstanceArgumentValue(parameter, new DataBinding<>("book"));
+		assertTrue(matchFlexoConceptInstance.getNewInstanceArgumentValue(parameter).isValid());
 
 		CreateEditionAction createSelectFetchRequestIterationAction2 = CreateEditionAction.actionType
 				.makeNewAction(updateDocumentActionScheme.getControlGraph(), null, _editor);
