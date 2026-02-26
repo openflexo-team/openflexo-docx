@@ -50,6 +50,17 @@ public interface DocXFragment extends FlexoDocFragment<DocXDocument, DocXTechnol
 			return (List<DocXElement<?>>) super.getElements();
 		}
 
+		/**
+		 * Return a {@link String} identifier identifying this object given its resource data<br>
+		 * Here we provide the way to reference start and end elements in a String
+		 * 
+		 * @return
+		 */
+		@Override
+		public String getLocalIdentifier() {
+			return getStartElement().getIdentifier() + ":" + getEndElement().getIdentifier();
+		}
+
 	}
 
 }

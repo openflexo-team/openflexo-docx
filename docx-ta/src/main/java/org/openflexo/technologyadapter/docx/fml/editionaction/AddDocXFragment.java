@@ -31,6 +31,9 @@ import org.openflexo.foundation.doc.FlexoDocElement;
 import org.openflexo.foundation.doc.FlexoDocFragment.FragmentConsistencyException;
 import org.openflexo.foundation.doc.FlexoDocTable;
 import org.openflexo.foundation.doc.FlexoDocTableCell;
+import org.openflexo.foundation.fml.annotations.FML;
+import org.openflexo.foundation.fml.annotations.FMLAttribute;
+import org.openflexo.foundation.fml.annotations.FMLAttribute.AttributeKind;
 import org.openflexo.foundation.fml.editionaction.TechnologySpecificActionDefiningReceiver;
 import org.openflexo.foundation.fml.rt.FMLExecutionException;
 import org.openflexo.foundation.fml.rt.RunTimeEvaluationContext;
@@ -57,6 +60,15 @@ import org.openflexo.technologyadapter.docx.model.DocXFragment;
 @ModelEntity
 @ImplementationClass(AddDocXFragment.AddDocXFragmentImpl.class)
 @XMLElement
+@FML(value = "AddDocXFragment", description = "<html>This edition primitive allows to insert a fragment in a docx document</html>"// ,
+/*examples = { @UsageExample(
+		example = "myShape = AddShape(container=topLevel) in (myDiagram);",
+		description = "Creates a new shape in Diagram identified by ‘myDiagram’ expression, at top-level, and assign this new shape to ‘myShape’"),
+		@UsageExample(
+				example = "myShape = DIAGRAM::AddShape(container=myContainerShape,extendParentBoundsToHostThisShape=true) in (myDiagram);",
+				description = "Creates a new shape in Diagram identified by ‘myDiagram’ expression, inside shape identified by ‘myContainerShape’ expression, and assign this new shape to ‘myShape’") },
+references = { @SeeAlso(ShapeRole.class), @SeeAlso(CreateDiagram.class), @SeeAlso(AddConnector.class),
+		@SeeAlso(GraphicalAction.class) }*/)
 public interface AddDocXFragment extends TechnologySpecificActionDefiningReceiver<DocXModelSlot, DocXDocument, DocXFragment> {
 
 	@PropertyIdentifier(type = DocXFragment.class)
@@ -86,6 +98,7 @@ public interface AddDocXFragment extends TechnologySpecificActionDefiningReceive
 
 	@Getter(value = LOCATION_KEY)
 	@XMLAttribute
+	@FMLAttribute(value = LOCATION_KEY, required = true, description = "<html>location where the fragment will be inserted</html>")
 	public DataBinding<? extends FlexoDocElement<?, ?>> getLocation();
 
 	@Setter(LOCATION_KEY)
@@ -93,6 +106,11 @@ public interface AddDocXFragment extends TechnologySpecificActionDefiningReceive
 
 	@Getter(value = LOCATION_SEMANTICS_KEY)
 	@XMLAttribute
+	@FMLAttribute(
+			value = LOCATION_SEMANTICS_KEY,
+			required = true,
+			kind = AttributeKind.Enum,
+			description = "<html>semantics for the insertion : could be InsertAfter, InsertBefore, InsertAfterLastChild, InsertBeforeLastChild, EndOfDocument</html>")
 	public LocationSemantics getLocationSemantics();
 
 	@Setter(LOCATION_SEMANTICS_KEY)

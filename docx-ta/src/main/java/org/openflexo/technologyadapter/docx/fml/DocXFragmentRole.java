@@ -25,6 +25,7 @@ import java.lang.reflect.Type;
 import org.openflexo.connie.type.TypeUtils;
 import org.openflexo.foundation.doc.fml.FlexoFragmentRole;
 import org.openflexo.foundation.fml.annotations.FML;
+import org.openflexo.foundation.fml.annotations.FMLAttribute;
 import org.openflexo.foundation.technologyadapter.TechnologyAdapter;
 import org.openflexo.pamela.annotations.Getter;
 import org.openflexo.pamela.annotations.ImplementationClass;
@@ -55,6 +56,7 @@ public interface DocXFragmentRole extends FlexoFragmentRole<DocXFragment, DocXDo
 	@Override
 	@Getter(value = FRAGMENT_KEY, isStringConvertable = true)
 	@XMLAttribute
+	@FMLAttribute(FRAGMENT_KEY)
 	public DocXFragment getFragment();
 
 	/**

@@ -23,6 +23,7 @@ package org.openflexo.technologyadapter.docx;
 import java.io.File;
 import java.util.logging.Logger;
 
+import org.openflexo.foundation.doc.TextSelectionConverter;
 import org.openflexo.foundation.fml.FMLModelFactory;
 import org.openflexo.foundation.fml.annotations.DeclareModelSlots;
 import org.openflexo.foundation.fml.annotations.DeclareResourceFactories;
@@ -150,6 +151,7 @@ public class DocXTechnologyAdapter extends TechnologyAdapter<DocXTechnologyAdapt
 
 		fMLModelFactory.addConverter(new DocXFragmentConverter());
 		fMLModelFactory.addConverter(new DocXElementConverter());
+		fMLModelFactory.addConverter(new TextSelectionConverter(getServiceManager()));
 	}
 
 	@Override
