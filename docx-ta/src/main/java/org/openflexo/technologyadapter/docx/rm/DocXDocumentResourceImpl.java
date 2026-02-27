@@ -31,12 +31,16 @@ import java.util.logging.Logger;
 import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.openflexo.foundation.FlexoException;
+import org.openflexo.foundation.FlexoObject;
+import org.openflexo.foundation.doc.FlexoDocElement;
+import org.openflexo.foundation.doc.FlexoDocFragment.FragmentConsistencyException;
 import org.openflexo.foundation.resource.FileIODelegate;
 import org.openflexo.foundation.resource.FileWritingLock;
 import org.openflexo.foundation.resource.PamelaResourceImpl;
 import org.openflexo.foundation.resource.ResourceLoadingCancelledException;
 import org.openflexo.foundation.resource.SaveResourceException;
 import org.openflexo.foundation.task.Progress;
+import org.openflexo.technologyadapter.docx.DocXTechnologyAdapter;
 import org.openflexo.technologyadapter.docx.model.DocXDocument;
 import org.openflexo.technologyadapter.docx.model.DocXFactory;
 import org.openflexo.technologyadapter.docx.model.IdentifierManagementStrategy;
@@ -168,6 +172,36 @@ public abstract class DocXDocumentResourceImpl extends PamelaResourceImpl<DocXDo
 	@Override
 	public Class<DocXDocument> getResourceDataClass() {
 		return DocXDocument.class;
+	}
+
+	@Override
+	public FlexoObject findObject(String objectIdentifier, String userIdentifier) {
+		//System.err.println("findObject: " + objectIdentifier + " userId=" + userIdentifier);
+		int separatorIndex = objectIdentifier.indexOf(":");
+		String startElementId = objectIdentifier.substring(0, separatorIndex);
+		String endElementId = objectIdentifier.substring(separatorIndex + 1);
+		FlexoDocElement<DocXDocument, DocXTechnologyAdapter> startElement = getDocument().getElementWithIdentifier(startElementId);
+		FlexoDocElement<DocXDocument, DocXTechnologyAdapter> endElement = getDocument().getElementWithIdentifier(endElementId);
+		try {
+			return getDocument().getFragment(startElement, endElement);
+		} catch (FragmentConsistencyException e) {
+			e.printStackTrace();
+			return null;
+		}
+
+		/*	String searchedId = getURI() + ":" + objectIdentifier;
+			System.err.println("searchedId=" + searchedId);
+			DocXFragmentConverter converter = new DocXFragmentConverter(getServiceManager());
+			DocXFragment fragment = converter.convertFromString(searchedId, null);
+			System.err.println("fragment=" + fragment);
+			return fragment;*/
+		// return super.findObject(objectIdentifier, userIdentifier);
+	}
+
+	@Override
+	public FlexoObject findObject(String objectIdentifier, String userIdentifier, String typeIdentifier) {
+		System.err.println("On cherche l'objet: " + objectIdentifier + " userId=" + userIdentifier + " typeIdentifier=" + typeIdentifier);
+		return super.findObject(objectIdentifier, userIdentifier, typeIdentifier);
 	}
 
 }
