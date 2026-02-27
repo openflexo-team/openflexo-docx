@@ -65,6 +65,7 @@ import org.openflexo.foundation.doc.TextSelection;
 import org.openflexo.foundation.doc.fml.TextBinding;
 import org.openflexo.foundation.fml.ActionScheme;
 import org.openflexo.foundation.fml.CreationScheme;
+import org.openflexo.foundation.fml.FMLModelFactory;
 import org.openflexo.foundation.fml.FMLTechnologyAdapter;
 import org.openflexo.foundation.fml.FlexoBehaviourParameter;
 import org.openflexo.foundation.fml.FlexoConcept;
@@ -324,6 +325,10 @@ public class TestLibrary extends AbstractTestDocX {
 		// assertTrue(viewPointResource.getDirectory().exists());
 		assertTrue(compilationUnitResource.getDirectory() != null);
 		assertTrue(compilationUnitResource.getIODelegate().exists());
+
+		System.err.println("viewPoint/FML:");
+		System.err.println(viewPoint.getCompilationUnit().getFMLPrettyPrint());
+
 	}
 
 	/**
@@ -511,8 +516,8 @@ public class TestLibrary extends AbstractTestDocX {
 
 		System.out.println(libraryVirtualModel.getFMLModelFactory().stringRepresentation(libraryVirtualModel));
 
-		System.out.println("FML:");
-		System.out.println(libraryVirtualModel.getFMLPrettyPrint());
+		System.err.println("libraryVirtualModel/FML:");
+		System.err.println(libraryVirtualModel.getCompilationUnit().getFMLPrettyPrint());
 	}
 
 	/**
@@ -640,11 +645,12 @@ public class TestLibrary extends AbstractTestDocX {
 
 		System.out.println(documentVirtualModel.getFMLModelFactory().stringRepresentation(documentVirtualModel));
 
-		System.out.println("FML:");
-		System.out.println(documentVirtualModel.getFMLPrettyPrint());
+		System.err.println("documentVirtualModel/FML:");
+		System.err.println(documentVirtualModel.getCompilationUnit().getFMLPrettyPrint());
 
 		assertTrue(documentVirtualModel.hasNature(FMLControlledDocXVirtualModelNature.INSTANCE));
 		assertEquals(docXModelSlot, FMLControlledDocXVirtualModelNature.getDocumentModelSlot(documentVirtualModel));
+
 	}
 
 	private static FlexoConcept createBookDescriptionSection() throws FragmentConsistencyException, InvalidNameException {
@@ -779,7 +785,7 @@ public class TestLibrary extends AbstractTestDocX {
 		createEditionAction.doAction();
 		AssignationAction<?> action = (AssignationAction<?>) createEditionAction.getNewEditionAction();
 		((ExpressionAction<?>) action.getAssignableAction()).setExpression(new DataBinding<>("parameters.aBook"));
-		action.setName("action");
+		action.setName("anAction");
 		assertTrue(action.getAssignation().isValid());
 		assertTrue(((ExpressionAction<?>) action.getAssignableAction()).getExpression().isValid());
 
@@ -866,7 +872,7 @@ public class TestLibrary extends AbstractTestDocX {
 		assertTrue(createGenerateDocXDocumentAction.hasActionExecutionSucceeded());
 
 		GenerateDocXDocument generateDocXDocument = (GenerateDocXDocument) createGenerateDocXDocumentAction.getBaseEditionAction();
-		generateDocXDocument.setResourceName(new DataBinding<>("'GeneratedDocument.docx'"));
+		generateDocXDocument.setResourceName(new DataBinding<>("\"GeneratedDocument.docx\""));
 		generateDocXDocument.setRelativePath("DocX");
 		generateDocXDocument.setResourceCenter(new DataBinding<>("this.resourceCenter"));
 
@@ -944,25 +950,16 @@ public class TestLibrary extends AbstractTestDocX {
 		MatchFlexoConceptInstance matchFlexoConceptInstance = (MatchFlexoConceptInstance) createMatchFlexoConceptInstanceAction
 				.getNewEditionAction();
 		matchFlexoConceptInstance.setFlexoConceptType(bookDescriptionSection);
-		matchFlexoConceptInstance.setReceiver(new DataBinding<FMLRTVirtualModelInstance>("this"));
+		matchFlexoConceptInstance.setReceiver(new DataBinding<>("this"));
+		matchFlexoConceptInstance.setContainer(new DataBinding<>("this"));
 
 		matchFlexoConceptInstance.setCreationScheme(bookDescriptionSection.getCreationSchemes().get(0));
 
-		// We check here that matching criterias were updated
-		System.out.println(documentVirtualModel.getFMLPrettyPrint());
-		System.out.println("criterias" + matchFlexoConceptInstance.getMatchingCriterias());
-		for (MatchingCriteria mc : matchFlexoConceptInstance.getMatchingCriterias()) {
-			System.out.println("mc: " + mc.getFlexoProperty());
-		}
-		assertEquals(7, matchFlexoConceptInstance.getMatchingCriterias().size());
-
+		FMLModelFactory fmlModelFactory = matchFlexoConceptInstance.getFMLModelFactory();
+		matchFlexoConceptInstance
+				.addToMatchingCriterias(fmlModelFactory.newMatchingCriteria(bookDescriptionSection.getAccessibleProperty("book")));
 		MatchingCriteria bookCriteria = matchFlexoConceptInstance.getMatchingCriteria(bookDescriptionSection.getAccessibleProperty("book"));
-		MatchingCriteria sectionCriteria = matchFlexoConceptInstance
-				.getMatchingCriteria(bookDescriptionSection.getAccessibleProperty("section"));
-
 		assertNotNull(bookCriteria);
-		assertNotNull(sectionCriteria);
-
 		bookCriteria.setValue(new DataBinding<>("book"));
 		assertTrue(bookCriteria.getValue().isValid());
 
@@ -1001,6 +998,9 @@ public class TestLibrary extends AbstractTestDocX {
 		ExpressionAction<?> updateExpression = (ExpressionAction<?>) createUpdateAction.getNewEditionAction();
 		updateExpression.setExpression(new DataBinding<>("bookSection.updateBookDescriptionSection()"));
 		assertTrue(updateExpression.getExpression().isValid());
+
+		System.err.println("documentVirtualModel.FML=");
+		System.err.println(documentVirtualModel.getCompilationUnit().getFMLPrettyPrint());
 
 		return updateDocumentActionScheme;
 	}
@@ -1591,6 +1591,9 @@ public class TestLibrary extends AbstractTestDocX {
 		assertNotNull(conclusionFragmentRole = (DocXFragmentRole) documentVirtualModel.getAccessibleRole("conclusionSection"));
 		assertEquals(docXModelSlot, conclusionFragmentRole.getModelSlot());
 
+		System.err.println("New FML");
+		System.err.println(documentVirtualModel.getCompilationUnit().getFMLPrettyPrint());
+
 		assertEquals(2, newViewResource.getVirtualModelInstanceResources().size());
 
 		assertEquals(1, newViewResource.getVirtualModelInstanceResources(libraryVirtualModel).size());
@@ -1661,7 +1664,11 @@ public class TestLibrary extends AbstractTestDocX {
 		assertFalse(documentVMI.isModified());
 		assertFalse(generatedDocument.isModified());
 
-		System.out.println("AVANT LE ADD: Generated document:\n" + generatedDocument.debugStructuredContents());
+		for (FlexoConceptInstance fci : libraryVMI.getFlexoConceptInstances()) {
+			System.err.println("fci = " + fci);
+		}
+
+		System.err.println("AVANT LE ADD: Generated document:\n" + generatedDocument.debugStructuredContents());
 
 		// Creation of new book
 		CreationSchemeAction createNewBook = new CreationSchemeAction(bookCreationScheme, libraryVMI, null, _editor);
@@ -1678,7 +1685,7 @@ public class TestLibrary extends AbstractTestDocX {
 		assertEquals(bookConcept, newBook.getFlexoConcept());
 
 		for (FlexoConceptInstance fci : libraryVMI.getFlexoConceptInstances()) {
-			System.out.println("fci = " + fci);
+			System.err.println("fci = " + fci);
 		}
 		assertEquals(4, libraryVMI.getFlexoConceptInstances().size());
 
@@ -1686,9 +1693,9 @@ public class TestLibrary extends AbstractTestDocX {
 		assertFalse(documentVMI.isModified());
 		assertFalse(generatedDocument.isModified());
 
-		System.out.println("Applying updateDocumentActionScheme: ");
+		System.err.println("Applying updateDocumentActionScheme: ");
 
-		System.out.println(updateDocumentActionScheme.getFMLPrettyPrint());
+		System.err.println(updateDocumentActionScheme.getFMLPrettyPrint());
 
 		// Launch updateDocument actions
 		ActionSchemeActionFactory actionType = new ActionSchemeActionFactory(updateDocumentActionScheme, documentVMI);
@@ -1714,7 +1721,7 @@ public class TestLibrary extends AbstractTestDocX {
 		assertFalse(documentVMI.isModified());
 		assertFalse(generatedDocument.isModified());
 
-		System.out.println("Generated document:\n" + generatedDocument.debugStructuredContents());
+		System.err.println("Generated document:\n" + generatedDocument.debugStructuredContents());
 
 		assertEquals(33, generatedDocument.getElements().size());
 

@@ -1,0 +1,72 @@
+namespace "http://openflexo.org/docx-test/TestResourceCenter" as DOCXTEST;
+
+use org.openflexo.foundation.fml.rt.FMLRTModelSlot as FMLRT;
+use org.openflexo.technologyadapter.docx.DocXModelSlot as DOCX;
+
+import org.openflexo.technologyadapter.docx.model.DocXDocument;
+import org.openflexo.technologyadapter.docx.model.DocXFragment;
+
+import [DOCXTEST+"/TestLibrary.fml/LibraryVirtualModel.fml"];
+import DocXDocument EXAMPLE_LIBRARY from [DOCXTEST+"/ExampleLibrary.docx"];
+import DocXFragment DOC_XFRAGMENT from [EXAMPLE_LIBRARY:"707AC6F7:43112AF5"];
+import DocXFragment DOC_XFRAGMENT2 from [EXAMPLE_LIBRARY:"6DC2CAFC:395C1CE1"];
+import DocXFragment DOC_XFRAGMENT3 from [EXAMPLE_LIBRARY:"1A787643:2B774AAC"];
+import DocXFragment DOC_XFRAGMENT4 from [EXAMPLE_LIBRARY:"2936B416:395C1CE1"];
+
+@URI("http://openflexo.org/docx-test/TestResourceCenter/TestLibrary.fml/DocumentVirtualModel.fml")
+model DocumentVirtualModel {
+	LibraryVirtualModel library with ModelInstance();
+	DocXDocument document with DocXModelSlot();
+	DocXFragment introductionSection with DocXFragmentRole(container=document,fragment=DOC_XFRAGMENT,textBindings={});
+	DocXFragment booksDescriptionSection with DocXFragmentRole(container=document,fragment=DOC_XFRAGMENT2,textBindings={});
+	DocXFragment conclusionSection with DocXFragmentRole(container=document,fragment=DOC_XFRAGMENT3,textBindings={});
+
+	void generateDocument() {
+		document = DOCX::GenerateDocXDocument(resourceName="GeneratedDocument.docx",resourceCenter=this.resourceCenter,relativePath="DocX");
+		introductionSection = DOCX::SelectGeneratedDocXFragment() in introductionSection;
+		booksDescriptionSection = DOCX::SelectGeneratedDocXFragment() in booksDescriptionSection;
+		conclusionSection = DOCX::SelectGeneratedDocXFragment() in conclusionSection;
+	}
+
+	void updateDocument() {
+		for (Book book : select Book from library) {
+			match BookDescriptionSection from this where (book=book) unmatched:new BookDescriptionSection::createBookDescriptionSection(book);
+		}
+		for (BookDescriptionSection bookSection : select BookDescriptionSection from this) {
+			bookSection.updateBookDescriptionSection();
+		}
+	}
+
+	void reinjectFromDocument() {
+		for (BookDescriptionSection bookSection : select BookDescriptionSection from this) {
+			bookSection.reinjectDataFromBookDescriptionSection();
+		}
+	}
+
+	public concept BookDescriptionSection {
+		Book book with ConceptInstance();
+		DocXFragment section with DocXFragmentRole(
+				container=document,
+				fragment=DOC_XFRAGMENT4,
+				textBindings={
+						TextBinding:(textSelection="2936B416:0-2936B416:1", value=book.title), 
+						TextBinding:(textSelection="32A77C92:1:2-32A77C92:1", value=book.author), 
+						TextBinding:(textSelection="4229CE51:2-4229CE51:2", value=book.edition), 
+						TextBinding:(textSelection="57259789:1:2-57259789:1", value=book.type), 
+						TextBinding:(isMultiline=true, textSelection="395C1CE1-395C1CE1", value=book.description)});
+		
+		create::createBookDescriptionSection(Book aBook) {
+			book = parameters.aBook;
+			section = DOCX::AddDocXFragment(location=booksDescriptionSection.startElement,locationSemantics=$InsertBeforeLastChild) in document;
+			DOCX::ApplyTextBindings() in section;
+		}
+		
+		void updateBookDescriptionSection() {
+			DOCX::ApplyTextBindings() in section;
+		}
+		
+		void reinjectDataFromBookDescriptionSection() {
+			DOCX::ReinjectTextBindings() in section;
+		}
+	}
+}

@@ -1,0 +1,21 @@
+import java.lang.String;
+
+@URI("http://openflexo.org/docx-test/TestResourceCenter/TestLibrary.fml/LibraryVirtualModel.fml")
+model LibraryVirtualModel {
+
+	public concept Book {
+		String title;
+		String author;
+		String edition;
+		String type;
+		String description;
+
+		create(String aTitle, String anAuthor, String anEdition, String aType, String aDescription) {
+			title = parameters.aTitle;
+			author = parameters.anAuthor;
+			edition = parameters.anEdition;
+			type = parameters.aType;
+			description = parameters.aDescription;
+		}
+	}
+}
