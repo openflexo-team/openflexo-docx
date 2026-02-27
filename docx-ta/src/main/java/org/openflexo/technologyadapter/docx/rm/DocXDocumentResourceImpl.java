@@ -176,12 +176,13 @@ public abstract class DocXDocumentResourceImpl extends PamelaResourceImpl<DocXDo
 
 	@Override
 	public FlexoObject findObject(String objectIdentifier, String userIdentifier) {
-		//System.err.println("findObject: " + objectIdentifier + " userId=" + userIdentifier);
+		// System.err.println("findObject: " + objectIdentifier + " userId=" + userIdentifier);
 		int separatorIndex = objectIdentifier.indexOf(":");
 		String startElementId = objectIdentifier.substring(0, separatorIndex);
 		String endElementId = objectIdentifier.substring(separatorIndex + 1);
 		FlexoDocElement<DocXDocument, DocXTechnologyAdapter> startElement = getDocument().getElementWithIdentifier(startElementId);
 		FlexoDocElement<DocXDocument, DocXTechnologyAdapter> endElement = getDocument().getElementWithIdentifier(endElementId);
+
 		try {
 			return getDocument().getFragment(startElement, endElement);
 		} catch (FragmentConsistencyException e) {
@@ -189,18 +190,11 @@ public abstract class DocXDocumentResourceImpl extends PamelaResourceImpl<DocXDo
 			return null;
 		}
 
-		/*	String searchedId = getURI() + ":" + objectIdentifier;
-			System.err.println("searchedId=" + searchedId);
-			DocXFragmentConverter converter = new DocXFragmentConverter(getServiceManager());
-			DocXFragment fragment = converter.convertFromString(searchedId, null);
-			System.err.println("fragment=" + fragment);
-			return fragment;*/
-		// return super.findObject(objectIdentifier, userIdentifier);
 	}
 
 	@Override
 	public FlexoObject findObject(String objectIdentifier, String userIdentifier, String typeIdentifier) {
-		System.err.println("On cherche l'objet: " + objectIdentifier + " userId=" + userIdentifier + " typeIdentifier=" + typeIdentifier);
+		// System.err.println("findObject: " + objectIdentifier + " userId=" + userIdentifier + " typeIdentifier=" + typeIdentifier);
 		return super.findObject(objectIdentifier, userIdentifier, typeIdentifier);
 	}
 
