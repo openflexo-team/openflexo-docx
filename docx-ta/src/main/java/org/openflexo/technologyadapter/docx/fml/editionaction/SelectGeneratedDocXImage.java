@@ -48,6 +48,7 @@ import org.openflexo.connie.exception.TypeMismatchException;
 import org.openflexo.foundation.doc.FlexoDocElement;
 import org.openflexo.foundation.doc.FlexoDocRun;
 import org.openflexo.foundation.fml.annotations.FML;
+import org.openflexo.foundation.fml.annotations.FMLAttribute;
 import org.openflexo.foundation.fml.editionaction.EditionAction;
 import org.openflexo.foundation.fml.rt.FMLExecutionException;
 import org.openflexo.foundation.fml.rt.ModelSlotInstance;
@@ -76,7 +77,7 @@ import org.openflexo.technologyadapter.docx.model.DocXParagraph;
 @ModelEntity
 @ImplementationClass(SelectGeneratedDocXImage.SelectGeneratedDocXImageImpl.class)
 @XMLElement
-@FML("SelectGeneratedDocXParagraph")
+@FML("SelectGeneratedDocXImage")
 public interface SelectGeneratedDocXImage extends DocXImageAction {
 
 	@PropertyIdentifier(type = String.class)
@@ -96,6 +97,7 @@ public interface SelectGeneratedDocXImage extends DocXImageAction {
 	 */
 	@Getter(PARAGRAPH_ID_KEY)
 	@XMLAttribute
+	@FMLAttribute(PARAGRAPH_ID_KEY)
 	public String getParagraphIdentifier();
 
 	/**
@@ -113,6 +115,7 @@ public interface SelectGeneratedDocXImage extends DocXImageAction {
 	 */
 	@Getter(value = RUN_INDEX_KEY, defaultValue = "-1")
 	@XMLAttribute
+	@FMLAttribute(RUN_INDEX_KEY)
 	public int getRunIndex();
 
 	/**
@@ -131,6 +134,7 @@ public interface SelectGeneratedDocXImage extends DocXImageAction {
 	 */
 	@Getter(value = DOCUMENT_FRAGMENT_KEY)
 	@XMLAttribute
+	@FMLAttribute(DOCUMENT_FRAGMENT_KEY)
 	public DataBinding<DocXFragment> getDocumentFragment();
 
 	/**

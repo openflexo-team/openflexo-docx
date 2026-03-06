@@ -47,6 +47,7 @@ import org.openflexo.connie.exception.NullReferenceException;
 import org.openflexo.connie.exception.TypeMismatchException;
 import org.openflexo.foundation.doc.FlexoDocElement;
 import org.openflexo.foundation.fml.annotations.FML;
+import org.openflexo.foundation.fml.annotations.FMLAttribute;
 import org.openflexo.foundation.fml.editionaction.EditionAction;
 import org.openflexo.foundation.fml.rt.FMLExecutionException;
 import org.openflexo.foundation.fml.rt.ModelSlotInstance;
@@ -91,6 +92,7 @@ public interface SelectGeneratedDocXParagraph extends DocXParagraphAction {
 	 */
 	@Getter(PARAGRAPH_ID_KEY)
 	@XMLAttribute
+	@FMLAttribute(PARAGRAPH_ID_KEY)
 	public String getParagraphIdentifier();
 
 	/**
@@ -109,6 +111,7 @@ public interface SelectGeneratedDocXParagraph extends DocXParagraphAction {
 	 */
 	@Getter(value = DOCUMENT_FRAGMENT_KEY)
 	@XMLAttribute
+	@FMLAttribute(DOCUMENT_FRAGMENT_KEY)
 	public DataBinding<DocXFragment> getDocumentFragment();
 
 	/**

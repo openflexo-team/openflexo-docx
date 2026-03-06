@@ -65,7 +65,6 @@ import org.openflexo.technologyadapter.docx.fml.editionaction.SelectUniqueDocXPa
 import org.openflexo.technologyadapter.docx.model.DocXDocument;
 import org.openflexo.technologyadapter.docx.model.IdentifierManagementStrategy;
 import org.openflexo.technologyadapter.docx.rm.DocXDocumentResource;
-import org.openflexo.toolbox.StringUtils;
 
 /**
  * Implementation of the ModelSlot class for the DOCX technology adapter<br>
@@ -95,13 +94,6 @@ public interface DocXModelSlot extends FlexoDocumentModelSlot<DocXDocument, DocX
 
 	@PropertyIdentifier(type = IdentifierManagementStrategy.class)
 	public static final String ID_STRATEGY_KEY = "idStrategy";
-
-	@Override
-	@Getter(TEMPLATE_RESOURCE_KEY)
-	public DocXDocumentResource getTemplateResource();
-
-	@Setter(TEMPLATE_RESOURCE_KEY)
-	public void setTemplateResource(DocXDocumentResource templateResource);
 
 	@Getter(ID_STRATEGY_KEY)
 	@XMLAttribute
@@ -138,60 +130,6 @@ public interface DocXModelSlot extends FlexoDocumentModelSlot<DocXDocument, DocX
 		public DocXTechnologyAdapter getModelSlotTechnologyAdapter() {
 			return (DocXTechnologyAdapter) super.getModelSlotTechnologyAdapter();
 		}
-
-		private DocXDocumentResource templateResource;
-
-		@Override
-		public DocXDocumentResource getTemplateResource() {
-
-			if (templateResource == null && StringUtils.isNotEmpty(templateDocumentURI)
-					&& getServiceManager().getResourceManager() != null) {
-
-				getServiceManager().activateTechnologyAdapter(getModelSlotTechnologyAdapter(), true);
-
-				// System.out.println("Looking up " + templateDocumentURI);
-				templateResource = (DocXDocumentResource) getServiceManager().getResourceManager().getResource(templateDocumentURI);
-				// System.out.println("templateResource = " + templateResource);
-				// for (FlexoResourceCenter<?> rc : getServiceManager().getResourceCenterService().getResourceCenters()) {
-				// System.out.println("* rc=" + rc);
-				// for (FlexoResource r : rc.getAllResources(null)) {
-				// System.out.println(" >> " + r);
-				// }
-				// }
-				// for (FlexoResource r : getServiceManager().getResourceManager().getRegisteredResources()) {
-				// System.out.println("> " + r.getURI());
-				// }
-			}
-
-			return templateResource;
-		}
-
-		@Override
-		public void setTemplateResource(DocXDocumentResource templateResource) {
-			if (templateResource != this.templateResource) {
-				DocXDocumentResource oldValue = this.templateResource;
-				this.templateResource = templateResource;
-				getPropertyChangeSupport().firePropertyChange("templateResource", oldValue, templateResource);
-			}
-		}
-
-		/*@Override
-		public TechnologyAdapterResource<DocXDocument, ?> createProjectSpecificEmptyResource(VirtualModelInstance<?, ?> view,
-				String filename, String modelUri) {
-		
-			return getModelSlotTechnologyAdapter().createNewDocXDocumentResource(view.getResourceCenter(), filename, true, getIdStrategy());
-		}
-		
-		@Override
-		public TechnologyAdapterResource<DocXDocument, ?> createSharedEmptyResource(FlexoResourceCenter<?> resourceCenter,
-				String relativePath, String filename, String modelUri) {
-			if (resourceCenter instanceof FileSystemBasedResourceCenter) {
-				return getModelSlotTechnologyAdapter().createNewDocXDocumentResource((FileSystemBasedResourceCenter) resourceCenter,
-						relativePath, filename, false, getIdStrategy());
-			}
-			logger.warning("Could not create docx in this kind of ResourceCenter");
-			return null;
-		}*/
 
 		@Override
 		// returns default value to paraId when none specified, because it is less intrusive (templage management)

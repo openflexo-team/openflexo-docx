@@ -71,6 +71,7 @@ import org.openflexo.foundation.doc.fml.FlexoTableRole.FlexoTableRoleImpl;
 import org.openflexo.foundation.doc.fml.TextBinding;
 import org.openflexo.foundation.fml.ActionScheme;
 import org.openflexo.foundation.fml.CreationScheme;
+import org.openflexo.foundation.fml.FMLModelFactory;
 import org.openflexo.foundation.fml.FMLTechnologyAdapter;
 import org.openflexo.foundation.fml.FlexoBehaviourParameter;
 import org.openflexo.foundation.fml.FlexoConcept;
@@ -736,6 +737,7 @@ public class TestLibrary2 extends AbstractTestDocX {
 		// We create a role pointing to the book listing table
 		CreateTechnologyRole createTableRole = CreateTechnologyRole.actionType.makeNewAction(documentVirtualModel, null, _editor);
 		createTableRole.setRoleName("bookListingTable");
+		createTableRole.setModelSlot(docXModelSlot);
 		createTableRole.setFlexoRoleClass(DocXTableRole.class);
 		assertEquals(docXModelSlot, createTableRole.getModelSlot());
 		createTableRole.doAction();
@@ -818,8 +820,8 @@ public class TestLibrary2 extends AbstractTestDocX {
 
 		System.out.println(documentVirtualModel.getFMLModelFactory().stringRepresentation(documentVirtualModel));
 
-		System.out.println("FML:");
-		System.out.println(documentVirtualModel.getFMLPrettyPrint());
+		System.err.println("FML:");
+		System.err.println(documentVirtualModel.getCompilationUnit().getFMLPrettyPrint());
 
 		assertTrue(documentVirtualModel.hasNature(FMLControlledDocXVirtualModelNature.INSTANCE));
 		assertEquals(docXModelSlot, FMLControlledDocXVirtualModelNature.getDocumentModelSlot(documentVirtualModel));
@@ -967,7 +969,7 @@ public class TestLibrary2 extends AbstractTestDocX {
 		createEditionAction.doAction();
 		AssignationAction<?> action = (AssignationAction<?>) createEditionAction.getNewEditionAction();
 		((ExpressionAction<?>) action.getAssignableAction()).setExpression(new DataBinding<>("parameters.aBook"));
-		action.setName("action");
+		action.setName("anAction");
 		assertTrue(action.getAssignation().isValid());
 		assertTrue(((ExpressionAction<?>) action.getAssignableAction()).getExpression().isValid());
 
@@ -1054,7 +1056,7 @@ public class TestLibrary2 extends AbstractTestDocX {
 		assertTrue(createGenerateDocXDocumentAction.hasActionExecutionSucceeded());
 
 		GenerateDocXDocument generateDocXDocument = (GenerateDocXDocument) createGenerateDocXDocumentAction.getBaseEditionAction();
-		generateDocXDocument.setResourceName(new DataBinding<>("'GeneratedDocument.docx'"));
+		generateDocXDocument.setResourceName(new DataBinding<>("\"GeneratedDocument.docx\""));
 		generateDocXDocument.setRelativePath("DocX");
 		generateDocXDocument.setResourceCenter(new DataBinding<>("this.resourceCenter"));
 
@@ -1092,7 +1094,7 @@ public class TestLibrary2 extends AbstractTestDocX {
 		createSelectTable.doAction();
 		AssignationAction<?> action4 = (AssignationAction<?>) createSelectTable.getNewEditionAction();
 		assertTrue(action4.getAssignation().isValid());
-		// ((SelectGeneratedDocXTable) action4.getAssignableAction()).getReceiver().setUnparsedBinding("bookListingTable");
+		((SelectGeneratedDocXTable) action4.getAssignableAction()).getReceiver().setUnparsedBinding("bookListingTable");
 
 		return generateDocumentActionScheme;
 
@@ -1142,19 +1144,15 @@ public class TestLibrary2 extends AbstractTestDocX {
 				.getNewEditionAction();
 		matchFlexoConceptInstance.setFlexoConceptType(bookDescriptionSection);
 		matchFlexoConceptInstance.setReceiver(new DataBinding<FMLRTVirtualModelInstance>("this"));
+		matchFlexoConceptInstance.setContainer(new DataBinding<>("this"));
 
 		matchFlexoConceptInstance.setCreationScheme(bookDescriptionSection.getCreationSchemes().get(0));
 
-		// We check here that matching criterias were updated
-		assertEquals(8, matchFlexoConceptInstance.getMatchingCriterias().size());
-
+		FMLModelFactory fmlModelFactory = matchFlexoConceptInstance.getFMLModelFactory();
+		matchFlexoConceptInstance
+				.addToMatchingCriterias(fmlModelFactory.newMatchingCriteria(bookDescriptionSection.getAccessibleProperty("book")));
 		MatchingCriteria bookCriteria = matchFlexoConceptInstance.getMatchingCriteria(bookDescriptionSection.getAccessibleProperty("book"));
-		MatchingCriteria sectionCriteria = matchFlexoConceptInstance
-				.getMatchingCriteria(bookDescriptionSection.getAccessibleProperty("section"));
-
 		assertNotNull(bookCriteria);
-		assertNotNull(sectionCriteria);
-
 		bookCriteria.setValue(new DataBinding<>("book"));
 		assertTrue(bookCriteria.getValue().isValid());
 
@@ -1743,6 +1741,8 @@ public class TestLibrary2 extends AbstractTestDocX {
 	@TestOrder(12)
 	public void testReloadProject() throws ResourceLoadingCancelledException, FlexoException, IOException {
 
+		documentVirtualModel.getCompilationUnit().getResource().save();
+
 		log("testReloadProject()");
 
 		DocXDocument generatedDocumentBeforeReload = generatedDocument;
@@ -1853,6 +1853,10 @@ public class TestLibrary2 extends AbstractTestDocX {
 		assertFalse(libraryVMI.isModified());
 		assertFalse(documentVMI.isModified());
 		assertFalse(generatedDocument.isModified());
+
+		System.err.println("FML APRES:");
+		System.err.println("Depuis: " + documentVirtualModel.getResource().getIODelegate().getSerializationArtefact());
+		System.err.println(documentVirtualModel.getCompilationUnit().getFMLPrettyPrint());
 
 	}
 

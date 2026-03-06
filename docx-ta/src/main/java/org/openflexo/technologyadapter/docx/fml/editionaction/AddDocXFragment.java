@@ -85,6 +85,7 @@ public interface AddDocXFragment extends TechnologySpecificActionDefiningReceive
 	 */
 	@Getter(value = FRAGMENT_KEY, isStringConvertable = true)
 	@XMLAttribute
+	@FMLAttribute(FRAGMENT_KEY)
 	public DocXFragment getFragment();
 
 	/**
