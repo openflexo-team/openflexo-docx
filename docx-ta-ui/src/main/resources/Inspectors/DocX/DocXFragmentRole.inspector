@@ -51,7 +51,7 @@
 					componentClassName="org.openflexo.components.doc.editorkit.widget.FlexoDocFragmentEditorWidget"
 					dataClassForComponent="org.openflexo.technologyadapter.docx.model.DocXFragment"
 					localize="true" manageDynamicModel="true" data="data.fragment"
-					index="6" constraints="border(location=center)" name="DocXFragmentEditor">
+					index="6" constraints="border(location=center)" name="docXFragmentEditor">
 					<Assignment id="12" variable="component.highlightedTextSelection"
 						value="selectedTextBinding.textSelection" mandatory="true" />
 				</Custom>
@@ -88,7 +88,7 @@
 				<CheckBoxColumn id="20" data="iterator.isMultiline"
 					resizable="false" title="multiline" displayTitle="true"
 					columnWidth="100" showIcon="false" name="displayTitle" />
-				<AddAction method="controller.createTextBinding(data,DocXFragmentEditor.component.textSelection)" name="new_text_binding" />
+				<AddAction method="controller.createTextBinding(data,docXFragmentEditor.component.textSelection)" name="new_text_binding" />
 				<RemoveAction id="21"
 					method="controller.deleteTextBinding(selected)" name="delete_text_binding" />
 				<CustomAction id="22" method="controller.moveToTop(selected)"
