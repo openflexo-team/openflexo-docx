@@ -108,7 +108,8 @@ public class DocXTechnologyAdapter extends TechnologyAdapter<DocXTechnologyAdapt
 		DocXDocumentRepository<I> returned = resourceCenter.retrieveRepository(DocXDocumentRepository.class, this);
 		if (returned == null) {
 			returned = DocXDocumentRepository.instanciateNewRepository(this, resourceCenter);
-			resourceCenter.registerRepository(returned, DocXDocumentRepository.class, this);
+			// Another thread may have registered one meanwhile: use the registered one (CORE-D-25)
+			returned = resourceCenter.registerRepository(returned, DocXDocumentRepository.class, this);
 		}
 		return returned;
 	}
