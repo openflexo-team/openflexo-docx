@@ -367,7 +367,7 @@ public class TestControlledDocumentVirtualModel extends AbstractTestDocX {
 
 		GenerateDocXDocument generateAction = (GenerateDocXDocument) createGenerateDocXDocumentAction.getBaseEditionAction();
 		generateAction.setRelativePath("DocX");
-		generateAction.setResourceName(new DataBinding<>("'GeneratedDocument.docx'"));
+		generateAction.setResourceName(new DataBinding<>("\"GeneratedDocument.docx\""));
 		generateAction.setResourceCenter(new DataBinding<>("this.resourceCenter"));
 
 		CreateEditionAction createFragmentAction = CreateEditionAction.actionType.makeNewAction(actionScheme.getControlGraph(), null,
@@ -411,8 +411,8 @@ public class TestControlledDocumentVirtualModel extends AbstractTestDocX {
 		createDocX.setResourceName(new DataBinding<>("'TestDocX'"));
 		createDocX.setResourceCenter(new DataBinding<>("this.resourceCenter"));*/
 
-		System.out.println("VirtualModel ***************************");
-		System.out.println(virtualModel.getFMLPrettyPrint());
+		System.err.println("VirtualModel ***************************");
+		System.err.println(virtualModel.getFMLPrettyPrint());
 	}
 
 	/**
@@ -579,6 +579,8 @@ public class TestControlledDocumentVirtualModel extends AbstractTestDocX {
 	@TestOrder(10)
 	public void testReloadProject() throws ResourceLoadingCancelledException, FlexoException, IOException {
 
+		virtualModel.getCompilationUnit().getResource().save();
+
 		log("testReloadProject()");
 
 		DocXDocument generatedDocumentBeforeReload = generatedDocument;
@@ -651,9 +653,9 @@ public class TestControlledDocumentVirtualModel extends AbstractTestDocX {
 		FragmentActorReference<DocXFragment> actorReference = (FragmentActorReference<DocXFragment>) newVirtualModelInstance
 				.getActorReference(fragmentRole);
 
-		System.out.println("Template fragment = " + templatefragment);
-		System.out.println("Generated fragment = " + generatedFragment);
-		System.out.println("ActorReference = " + actorReference);
+		System.err.println("Template fragment = " + templatefragment);
+		System.err.println("Generated fragment = " + generatedFragment);
+		System.err.println("ActorReference = " + actorReference);
 
 		assertNotNull(templatefragment);
 		assertNotNull(generatedFragment);

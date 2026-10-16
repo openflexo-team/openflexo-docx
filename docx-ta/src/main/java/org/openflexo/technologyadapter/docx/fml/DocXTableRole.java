@@ -24,6 +24,7 @@ import java.lang.reflect.Type;
 
 import org.openflexo.foundation.doc.FlexoDocFragment.FragmentConsistencyException;
 import org.openflexo.foundation.doc.fml.FlexoTableRole;
+import org.openflexo.foundation.fml.annotations.FML;
 import org.openflexo.foundation.technologyadapter.TechnologyAdapter;
 import org.openflexo.pamela.annotations.ImplementationClass;
 import org.openflexo.pamela.annotations.ModelEntity;
@@ -37,6 +38,7 @@ import org.openflexo.technologyadapter.docx.model.DocXTable;
 @ModelEntity
 @ImplementationClass(DocXTableRole.DocXTableRoleImpl.class)
 @XMLElement
+@FML("DocXTableRole")
 public interface DocXTableRole extends FlexoTableRole<DocXTable, DocXDocument, DocXTechnologyAdapter> {
 
 	public static final String TABLE_FRAGMENT_KEY = "tableFragment";

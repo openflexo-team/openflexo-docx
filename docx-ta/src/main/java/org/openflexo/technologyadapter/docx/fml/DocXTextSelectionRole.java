@@ -24,6 +24,7 @@ import java.lang.reflect.Type;
 
 import org.openflexo.foundation.doc.TextSelection;
 import org.openflexo.foundation.doc.fml.TextSelectionRole;
+import org.openflexo.foundation.fml.annotations.FML;
 import org.openflexo.foundation.technologyadapter.TechnologyAdapter;
 import org.openflexo.pamela.annotations.ImplementationClass;
 import org.openflexo.pamela.annotations.ModelEntity;
@@ -34,6 +35,7 @@ import org.openflexo.technologyadapter.docx.model.DocXDocument;
 @ModelEntity
 @ImplementationClass(DocXTextSelectionRole.DocXTextSelectionRoleImpl.class)
 @XMLElement
+@FML("DocXTextSelectionRole")
 public interface DocXTextSelectionRole extends TextSelectionRole<DocXDocument, DocXTechnologyAdapter> {
 
 	public static abstract class DocXTextSelectionRoleImpl extends TextSelectionRoleImpl<DocXDocument, DocXTechnologyAdapter>

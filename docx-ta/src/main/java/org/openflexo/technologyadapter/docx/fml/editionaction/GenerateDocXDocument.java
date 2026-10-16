@@ -137,7 +137,7 @@ public interface GenerateDocXDocument extends AbstractCreateResource<DocXModelSl
 
 			try {
 
-				DocXDocumentResource templateResource = getAssignedModelSlot().getTemplateResource();
+				DocXDocumentResource templateResource = (DocXDocumentResource) getAssignedModelSlot().getTemplateResource();
 				DocXDocument templateDocument = templateResource.getResourceData();
 
 				FlexoResource<DocXDocument> generatedResource = null;

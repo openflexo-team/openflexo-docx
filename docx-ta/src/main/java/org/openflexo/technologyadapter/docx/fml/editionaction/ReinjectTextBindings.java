@@ -52,7 +52,7 @@ import org.openflexo.technologyadapter.docx.model.DocXFragment;
 @ModelEntity
 @ImplementationClass(ReinjectTextBindings.ReinjectTextBindingsImpl.class)
 @XMLElement
-@FML("ApplyTextBindings")
+@FML("ReinjectTextBindings")
 public interface ReinjectTextBindings extends DocXFragmentAction {
 
 	public static abstract class ReinjectTextBindingsImpl extends DocXFragmentActionImpl implements ReinjectTextBindings {

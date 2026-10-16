@@ -31,6 +31,11 @@ import org.openflexo.foundation.doc.FlexoDocElement;
 import org.openflexo.foundation.doc.FlexoDocFragment.FragmentConsistencyException;
 import org.openflexo.foundation.doc.FlexoDocTable;
 import org.openflexo.foundation.doc.FlexoDocTableCell;
+import org.openflexo.foundation.fml.annotations.FML;
+import org.openflexo.foundation.fml.annotations.FMLAttribute;
+import org.openflexo.foundation.fml.annotations.FMLAttribute.AttributeKind;
+import org.openflexo.foundation.fml.annotations.SeeAlso;
+import org.openflexo.foundation.fml.annotations.UsageExample;
 import org.openflexo.foundation.fml.editionaction.TechnologySpecificActionDefiningReceiver;
 import org.openflexo.foundation.fml.rt.FMLExecutionException;
 import org.openflexo.foundation.fml.rt.RunTimeEvaluationContext;
@@ -48,15 +53,21 @@ import org.openflexo.technologyadapter.docx.model.DocXElement;
 import org.openflexo.technologyadapter.docx.model.DocXFragment;
 
 /**
- * Create DOCX fragment
+ * This edition primitive allows to insert a template fragment in a docx document
  * 
  * @author sylvain
  * 
  */
-
 @ModelEntity
 @ImplementationClass(AddDocXFragment.AddDocXFragmentImpl.class)
 @XMLElement
+@FML(
+		value = "AddDocXFragment",
+		description = "<html>This edition primitive allows to insert a template fragment in a docx document</html>",
+		examples = { @UsageExample(
+				example = "newSection = DOCX::AddDocXFragment(location=aSection.startElement,locationSemantics=$InsertBeforeLastChild) in document;",
+				description = "Insert a new fragment while copying template fragment from assigned role, and assign this new copied fragment to ‘newSection’") },
+		references = { @SeeAlso(DocXFragmentRole.class), @SeeAlso(ApplyTextBindings.class), @SeeAlso(ReinjectTextBindings.class) })
 public interface AddDocXFragment extends TechnologySpecificActionDefiningReceiver<DocXModelSlot, DocXDocument, DocXFragment> {
 
 	@PropertyIdentifier(type = DocXFragment.class)
@@ -74,6 +85,7 @@ public interface AddDocXFragment extends TechnologySpecificActionDefiningReceive
 	 */
 	@Getter(value = FRAGMENT_KEY, isStringConvertable = true)
 	@XMLAttribute
+	@FMLAttribute(FRAGMENT_KEY)
 	public DocXFragment getFragment();
 
 	/**
@@ -86,6 +98,7 @@ public interface AddDocXFragment extends TechnologySpecificActionDefiningReceive
 
 	@Getter(value = LOCATION_KEY)
 	@XMLAttribute
+	@FMLAttribute(value = LOCATION_KEY, required = true, description = "<html>location where the fragment will be inserted</html>")
 	public DataBinding<? extends FlexoDocElement<?, ?>> getLocation();
 
 	@Setter(LOCATION_KEY)
@@ -93,6 +106,11 @@ public interface AddDocXFragment extends TechnologySpecificActionDefiningReceive
 
 	@Getter(value = LOCATION_SEMANTICS_KEY)
 	@XMLAttribute
+	@FMLAttribute(
+			value = LOCATION_SEMANTICS_KEY,
+			required = true,
+			kind = AttributeKind.Enum,
+			description = "<html>semantics for the insertion : could be InsertAfter, InsertBefore, InsertAfterLastChild, InsertBeforeLastChild, EndOfDocument</html>")
 	public LocationSemantics getLocationSemantics();
 
 	@Setter(LOCATION_SEMANTICS_KEY)
@@ -142,7 +160,7 @@ public interface AddDocXFragment extends TechnologySpecificActionDefiningReceive
 		@Override
 		public DocXFragment execute(RunTimeEvaluationContext evaluationContext) throws FMLExecutionException {
 
-			System.out.println("execute  AddDocXFragment(), location=" + getLocation());
+			// System.out.println("execute AddDocXFragment(), location=" + getLocation());
 
 			FlexoDocElement<?, ?> location = null;
 			if (getLocation() != null && getLocation().isSet() && getLocation().isValid()) {
@@ -159,6 +177,8 @@ public interface AddDocXFragment extends TechnologySpecificActionDefiningReceive
 					throw new FMLExecutionException("Could not retrieve location");
 				}
 			}
+
+			// System.err.println("*** location=" + location);
 
 			DocXDocument document = getReceiver(evaluationContext);
 
@@ -195,18 +215,27 @@ public interface AddDocXFragment extends TechnologySpecificActionDefiningReceive
 					break;
 			}
 
+			// System.err.println("*** insertIndex=" + insertIndex);
+
 			if (insertIndex > -1) {
 
 				boolean isFirst = true;
 				DocXElement startElement = null;
 				DocXElement endElement = null;
 
-				System.out.println("BEFORE addDocXFragment");
+				/*System.out.println("BEFORE addDocXFragment");
 				System.out.println("document=" + document);
 				System.out.println("contents=\n" + document.debugStructuredContents());
 				System.out.println("fragment=" + getFragment());
 				System.out.println("getAssignedFlexoProperty()=" + getAssignedFlexoProperty());
-				System.out.println("FML=" + getFMLPrettyPrint());
+				System.out.println("FML=" + getFMLPrettyPrint());*/
+
+				// System.err.println("SOURCE:\n" + getFragment().getFlexoDocument().debugStructuredContents());
+
+				/*for (DocXElement element : getFragment().getElements()) {
+					System.err.println(" >> " + element
+							+ (element instanceof DocXParagraph ? "[" + ((DocXParagraph) element).getRawText() + "]" : ""));
+				}*/
 
 				for (DocXElement element : getFragment().getElements()) {
 
@@ -241,6 +270,8 @@ public interface AddDocXFragment extends TechnologySpecificActionDefiningReceive
 				// System.out.println("AFTER addDocXFragment");
 				// System.out.println("document=" + document);
 				// System.out.println("contents=\n" + document.debugStructuredContents());
+
+				// System.err.println("---------> END execute AddDocXFragment(), location=" + getLocation());
 
 				try {
 					return document.getFragment(startElement, endElement);

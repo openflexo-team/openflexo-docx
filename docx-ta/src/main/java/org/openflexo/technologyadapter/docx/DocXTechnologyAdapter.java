@@ -23,6 +23,7 @@ package org.openflexo.technologyadapter.docx;
 import java.io.File;
 import java.util.logging.Logger;
 
+import org.openflexo.foundation.doc.TextSelectionConverter;
 import org.openflexo.foundation.fml.FMLModelFactory;
 import org.openflexo.foundation.fml.annotations.DeclareModelSlots;
 import org.openflexo.foundation.fml.annotations.DeclareResourceFactories;
@@ -107,7 +108,8 @@ public class DocXTechnologyAdapter extends TechnologyAdapter<DocXTechnologyAdapt
 		DocXDocumentRepository<I> returned = resourceCenter.retrieveRepository(DocXDocumentRepository.class, this);
 		if (returned == null) {
 			returned = DocXDocumentRepository.instanciateNewRepository(this, resourceCenter);
-			resourceCenter.registerRepository(returned, DocXDocumentRepository.class, this);
+			// Another thread may have registered one meanwhile: use the registered one (CORE-D-25)
+			returned = resourceCenter.registerRepository(returned, DocXDocumentRepository.class, this);
 		}
 		return returned;
 	}
@@ -150,6 +152,7 @@ public class DocXTechnologyAdapter extends TechnologyAdapter<DocXTechnologyAdapt
 
 		fMLModelFactory.addConverter(new DocXFragmentConverter());
 		fMLModelFactory.addConverter(new DocXElementConverter());
+		fMLModelFactory.addConverter(new TextSelectionConverter(getServiceManager()));
 	}
 
 	@Override

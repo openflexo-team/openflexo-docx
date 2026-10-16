@@ -65,6 +65,7 @@ import org.openflexo.foundation.doc.TextSelection;
 import org.openflexo.foundation.doc.fml.TextBinding;
 import org.openflexo.foundation.fml.ActionScheme;
 import org.openflexo.foundation.fml.CreationScheme;
+import org.openflexo.foundation.fml.FMLModelFactory;
 import org.openflexo.foundation.fml.FMLTechnologyAdapter;
 import org.openflexo.foundation.fml.FlexoBehaviourParameter;
 import org.openflexo.foundation.fml.FlexoConcept;
@@ -93,7 +94,6 @@ import org.openflexo.foundation.fml.rt.action.ActionSchemeAction;
 import org.openflexo.foundation.fml.rt.action.ActionSchemeActionFactory;
 import org.openflexo.foundation.fml.rt.action.CreateBasicVirtualModelInstance;
 import org.openflexo.foundation.fml.rt.action.CreationSchemeAction;
-import org.openflexo.foundation.fml.rt.editionaction.CreateFlexoConceptInstanceParameter;
 import org.openflexo.foundation.fml.rt.editionaction.MatchFlexoConceptInstance;
 import org.openflexo.foundation.fml.rt.editionaction.MatchingCriteria;
 import org.openflexo.foundation.fml.rt.editionaction.SelectFlexoConceptInstance;
@@ -814,7 +814,7 @@ public class TestLibraryUsingBookmarks extends AbstractTestDocX {
 		createEditionAction.doAction();
 		AssignationAction<?> action = (AssignationAction<?>) createEditionAction.getNewEditionAction();
 		((ExpressionAction<?>) action.getAssignableAction()).setExpression(new DataBinding<>("parameters.aBook"));
-		action.setName("action");
+		action.setName("anAction");
 		assertTrue(action.getAssignation().isValid());
 		assertTrue(((ExpressionAction<?>) action.getAssignableAction()).getExpression().isValid());
 
@@ -901,7 +901,7 @@ public class TestLibraryUsingBookmarks extends AbstractTestDocX {
 		assertTrue(createGenerateDocXDocumentAction.hasActionExecutionSucceeded());
 
 		GenerateDocXDocument generateDocXDocument = (GenerateDocXDocument) createGenerateDocXDocumentAction.getBaseEditionAction();
-		generateDocXDocument.setResourceName(new DataBinding<>("'GeneratedDocument.docx'"));
+		generateDocXDocument.setResourceName(new DataBinding<>("\"GeneratedDocument.docx\""));
 		generateDocXDocument.setRelativePath("DocX");
 		generateDocXDocument.setResourceCenter(new DataBinding<>("this.resourceCenter"));
 
@@ -980,30 +980,33 @@ public class TestLibraryUsingBookmarks extends AbstractTestDocX {
 				.getNewEditionAction();
 		matchFlexoConceptInstance.setFlexoConceptType(bookDescriptionSection);
 		matchFlexoConceptInstance.setReceiver(new DataBinding<>("this"));
+		matchFlexoConceptInstance.setContainer(new DataBinding<>("this"));
 
 		matchFlexoConceptInstance.setCreationScheme(bookDescriptionSection.getCreationSchemes().get(0));
 
-		// We check here that matching criterias were updated
-		assertEquals(7, matchFlexoConceptInstance.getMatchingCriterias().size());
-
+		FMLModelFactory fmlModelFactory = matchFlexoConceptInstance.getFMLModelFactory();
+		matchFlexoConceptInstance
+				.addToMatchingCriterias(fmlModelFactory.newMatchingCriteria(bookDescriptionSection.getAccessibleProperty("book")));
 		MatchingCriteria bookCriteria = matchFlexoConceptInstance.getMatchingCriteria(bookDescriptionSection.getAccessibleProperty("book"));
-		MatchingCriteria sectionCriteria = matchFlexoConceptInstance
-				.getMatchingCriteria(bookDescriptionSection.getAccessibleProperty("section"));
-
 		assertNotNull(bookCriteria);
-		assertNotNull(sectionCriteria);
-
 		bookCriteria.setValue(new DataBinding<>("book"));
 		assertTrue(bookCriteria.getValue().isValid());
 
 		// We check here that creation parameters were updated
-		assertEquals(1, matchFlexoConceptInstance.getParameters().size());
+		assertEquals(1, matchFlexoConceptInstance.getNewInstanceArguments().size());
 
-		CreateFlexoConceptInstanceParameter bookParam = matchFlexoConceptInstance
+		// We check here that creation parameters were updated
+		assertEquals(1, matchFlexoConceptInstance.getNewInstanceArguments().size());
+
+		/*CreateFlexoConceptInstanceParameter bookParam = matchFlexoConceptInstance
 				.getParameter(bookDescriptionSection.getCreationSchemes().get(0).getParameters().get(0));
 		assertNotNull(bookParam);
 		bookParam.setValue(new DataBinding<>("book"));
-		assertTrue(bookParam.getValue().isValid());
+		assertTrue(bookParam.getValue().isValid());*/
+
+		FlexoBehaviourParameter parameter = bookDescriptionSection.getCreationSchemes().get(0).getParameters().get(0);
+		matchFlexoConceptInstance.setNewInstanceArgumentValue(parameter, new DataBinding<>("book"));
+		assertTrue(matchFlexoConceptInstance.getNewInstanceArgumentValue(parameter).isValid());
 
 		CreateEditionAction createSelectFetchRequestIterationAction2 = CreateEditionAction.actionType
 				.makeNewAction(updateDocumentActionScheme.getControlGraph(), null, _editor);
@@ -1541,6 +1544,8 @@ public class TestLibraryUsingBookmarks extends AbstractTestDocX {
 	@Test
 	@TestOrder(12)
 	public void testReloadProject() throws ResourceLoadingCancelledException, FlexoException, IOException {
+
+		documentVirtualModel.getResource().save();
 
 		log("testReloadProject()");
 
