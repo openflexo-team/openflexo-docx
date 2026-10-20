@@ -20,7 +20,7 @@
 
 package org.openflexo.technologyadapter.docx.model;
 
-import javax.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBElement;
 
 import org.docx4j.jaxb.Context;
 import org.docx4j.wml.R;

@@ -20,7 +20,7 @@
 
 package org.openflexo.technologyadapter.docx.model;
 
-import org.docx4j.wml.RPrAbstract;
+import org.docx4j.wml.RPr;
 import org.openflexo.foundation.doc.FlexoDocStyle;
 import org.openflexo.foundation.doc.FlexoRunStyle;
 import org.openflexo.pamela.annotations.Getter;
@@ -41,33 +41,33 @@ import org.openflexo.technologyadapter.docx.rm.DocXDocumentResource;
 @ModelEntity
 @ImplementationClass(DocXRunStyle.DocXRunStyleImpl.class)
 @XMLElement
-public interface DocXRunStyle extends DocXObject<RPrAbstract>, FlexoRunStyle<DocXDocument, DocXTechnologyAdapter> {
+public interface DocXRunStyle extends DocXObject<RPr>, FlexoRunStyle<DocXDocument, DocXTechnologyAdapter> {
 
-	@PropertyIdentifier(type = RPrAbstract.class)
+	@PropertyIdentifier(type = RPr.class)
 	public static final String RPR_KEY = "rPr";
 
 	@Getter(value = RPR_KEY, ignoreType = true)
-	public RPrAbstract getRPr();
+	public RPr getRPr();
 
 	@Setter(RPR_KEY)
-	public void setRPr(RPrAbstract rPr);
+	public void setRPr(RPr rPr);
 
 	/**
 	 * This is the starting point for updating {@link DocXRunStyle} with the rPr provided from docx4j library<br>
 	 * Take care that the supplied rPr is the object we should update with, but that {@link #getRPr()} is unsafe in this context, because
 	 * return former value
 	 */
-	public void updateFromRPr(RPrAbstract rPr, DocXFactory factory);
+	public void updateFromRPr(RPr rPr, DocXFactory factory);
 
 	public static abstract class DocXRunStyleImpl extends FlexoRunStyleImpl<DocXDocument, DocXTechnologyAdapter> implements DocXRunStyle {
 
 		@Override
-		public RPrAbstract getDocXObject() {
+		public RPr getDocXObject() {
 			return getRPr();
 		}
 
 		@Override
-		public void setRPr(RPrAbstract rPr) {
+		public void setRPr(RPr rPr) {
 			if ((rPr == null && getRPr() != null) || (rPr != null && !rPr.equals(getRPr()))) {
 				if (rPr != null && getResourceData() != null && getResourceData().getResource() != null) {
 					updateFromRPr(rPr, ((DocXDocumentResource) getResourceData().getResource()).getFactory());
@@ -81,11 +81,11 @@ public interface DocXRunStyle extends DocXObject<RPrAbstract>, FlexoRunStyle<Doc
 		 * because return former value
 		 */
 		@Override
-		public void updateFromRPr(RPrAbstract rPr, DocXFactory factory) {
+		public void updateFromRPr(RPr rPr, DocXFactory factory) {
 
 			performSuperSetter(RPR_KEY, rPr);
 			// Take care at the previous line, since there is a risk for the notification not to be triggered,
-			// if value of RPrAbstract given by getRPr() returns the new value
+			// if value of RPr given by getRPr() returns the new value
 
 			factory.extractStyleProperties(rPr, this);
 		}

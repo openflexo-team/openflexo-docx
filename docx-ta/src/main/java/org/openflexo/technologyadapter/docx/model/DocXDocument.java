@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBElement;
 
 import org.docx4j.model.styles.Node;
 import org.docx4j.model.styles.StyleTree;
@@ -315,11 +315,15 @@ public interface DocXDocument extends DocXObject<WordprocessingMLPackage>, Flexo
 
 		private void updateStylesFromWmlPackage(WordprocessingMLPackage wpmlPackage, DocXFactory factory) {
 
-			StyleTree styleTree = wpmlPackage.getMainDocumentPart().getStyleTree(true);
-
 			List<NamedDocXStyle> stylesToRemove = new ArrayList<>(styles.values());
 
-			registerStyle(styleTree.getParagraphStylesTree().getRootElement(), null, stylesToRemove, factory);
+			// docx4j reports a flawed package (cyclic styles) with a checked exception since version 8
+			try {
+				StyleTree styleTree = wpmlPackage.getMainDocumentPart().getStyleTree(true);
+				registerStyle(styleTree.getParagraphStylesTree().getRootElement(), null, stylesToRemove, factory);
+			} catch (Docx4JException e) {
+				logger.log(java.util.logging.Level.WARNING, "Cannot compute the style tree: " + e.getMessage(), e);
+			}
 
 			StyleDefinitionsPart sdp = wpmlPackage.getMainDocumentPart().getStyleDefinitionsPart();
 			try {
@@ -701,7 +705,13 @@ public interface DocXDocument extends DocXObject<WordprocessingMLPackage>, Flexo
 			NamedDocXStyle returned = (NamedDocXStyle) getStyleByIdentifier(styleId);
 			// System.out.println("A priori je l'ai pas");
 			if (returned == null) {
-				if (getWordprocessingMLPackage().getMainDocumentPart().getPropertyResolver().activateStyle(styleId)) {
+				boolean activated = false;
+				try {
+					activated = getWordprocessingMLPackage().getMainDocumentPart().getPropertyResolver().activateStyle(styleId);
+				} catch (Docx4JException e) {
+					logger.log(java.util.logging.Level.WARNING, "Cannot activate style " + styleId + ": " + e.getMessage(), e);
+				}
+				if (activated) {
 					// System.out.println("Je viens de le trouver dans les known");
 					updateStylesFromWmlPackage(getWordprocessingMLPackage(), getFactory());
 					returned = (NamedDocXStyle) getStyleByIdentifier(styleId);

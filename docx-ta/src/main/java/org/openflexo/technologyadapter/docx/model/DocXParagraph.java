@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import javax.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBElement;
 
 import org.docx4j.TextUtils;
 import org.docx4j.XmlUtils;
@@ -222,7 +222,7 @@ public interface DocXParagraph extends DocXElement<P>, FlexoDocParagraph<DocXDoc
 			/*if (p != null) {
 				PPr ppr = p.getPPr();
 				if (ppr != null) {
-					RPrAbstract rpr = ppr.getRPr();
+					RPr rpr = ppr.getRPr();
 					if (rpr != null) {
 						System.out.println("Style du paragraphe: " + getRawText());
 						System.out.println("style=" + rpr.getRStyle());

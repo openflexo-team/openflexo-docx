@@ -86,7 +86,7 @@ public interface DocXParagraphStyle extends DocXObject<PPrBase>, FlexoParagraphS
 
 			performSuperSetter(PPR_KEY, pPr);
 			// Take care at the previous line, since there is a risk for the notification not to be triggered,
-			// if value of RPrAbstract given by getRPr() returns the new value
+			// if value of RPr given by getRPr() returns the new value
 
 			factory.extractStyleProperties(pPr, this);
 		}

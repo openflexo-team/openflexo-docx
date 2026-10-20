@@ -3,9 +3,9 @@ dependencies {
   implementation flexoFoundation()
   api flexoDocumentation()
   // external dep
-  api 'org.docx4j:docx4j:6.1.2'
-  implementation 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.3'
-  implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.3'
+  api docx4jCore()
+  runtimeOnly docx4jJaxbReferenceImpl()
+  implementation jakartaXmlBindApi()
   
   // testing dep
   testImplementation flexoFoundationTest()

@@ -25,7 +25,7 @@ import java.io.StringWriter;
 import org.docx4j.TextUtils;
 import org.docx4j.XmlUtils;
 import org.docx4j.wml.R;
-import org.docx4j.wml.RPrAbstract;
+import org.docx4j.wml.RPr;
 import org.openflexo.foundation.doc.FlexoDocRun;
 import org.openflexo.pamela.annotations.CloningStrategy;
 import org.openflexo.pamela.annotations.Getter;
@@ -100,7 +100,7 @@ public interface DocXRun extends FlexoDocRun<DocXDocument, DocXTechnologyAdapter
 			performSuperSetter(R_KEY, r);
 
 			if (r != null) {
-				RPrAbstract rpr = r.getRPr();
+				RPr rpr = r.getRPr();
 				if (rpr != null && factory != null) {
 					setRunStyle(factory.makeRunStyle(rpr));
 				}

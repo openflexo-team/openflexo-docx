@@ -44,7 +44,7 @@ import java.io.File;
 import java.util.logging.Logger;
 
 import javax.swing.text.TabStop;
-import javax.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBElement;
 
 import org.docx4j.dml.wordprocessingDrawing.Inline;
 import org.docx4j.jaxb.Context;
@@ -63,7 +63,7 @@ import org.docx4j.wml.P;
 import org.docx4j.wml.PPrBase;
 import org.docx4j.wml.R;
 import org.docx4j.wml.RFonts;
-import org.docx4j.wml.RPrAbstract;
+import org.docx4j.wml.RPr;
 import org.docx4j.wml.STLineSpacingRule;
 import org.docx4j.wml.STTabJc;
 import org.docx4j.wml.SdtBlock;
@@ -488,7 +488,7 @@ public class DocXFactory extends DocumentFactory<DocXDocument, DocXTechnologyAda
 		return null;
 	}
 
-	public void extractStyleProperties(RPrAbstract rPr, DocXRunStyle style) {
+	public void extractStyleProperties(RPr rPr, DocXRunStyle style) {
 
 		RFonts rFonts = rPr.getRFonts();
 		if (rFonts != null) {
@@ -671,7 +671,7 @@ public class DocXFactory extends DocumentFactory<DocXDocument, DocXTechnologyAda
 		return returned;
 	}
 
-	public DocXRunStyle makeRunStyle(RPrAbstract rPr) {
+	public DocXRunStyle makeRunStyle(RPr rPr) {
 
 		DocXRunStyle returned = newInstance(DocXRunStyle.class);
 		returned.updateFromRPr(rPr, this);
