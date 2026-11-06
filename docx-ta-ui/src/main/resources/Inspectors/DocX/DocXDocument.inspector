@@ -38,7 +38,6 @@
 			verticalScrollbarPolicy="VERTICAL_SCROLLBAR_AS_NEEDED" name="AdvancedTab" />
 	</TabPanel>
 	<LocalizedDictionary>
-		<Localized key="Advanced" lang="French" value="Avancé" />
 	</LocalizedDictionary>
 	<Parameter name="title" value="Word document (.docx)" />
 </Panel>

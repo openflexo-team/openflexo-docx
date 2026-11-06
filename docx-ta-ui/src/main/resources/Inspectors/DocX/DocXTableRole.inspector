@@ -109,8 +109,6 @@
 		</Tab>
 	</TabPanel>
 	<LocalizedDictionary>
-		<Localized key="Advanced" lang="French" value="Avancé" />
-		<Localized key="Basic" lang="French" value="Basique" />
 	</LocalizedDictionary>
 	<Parameter name="title" value="Document's table" />
 </Panel>

@@ -115,8 +115,6 @@
 	<FIBVariable id="31"
 		type="org.openflexo.foundation.doc.fml.TextBinding" name="selectedTextBinding" />
 	<LocalizedDictionary id="32">
-		<Localized id="33" lang="French" value="Avancé" key="Advanced" />
-		<Localized id="34" lang="French" value="Basique" key="Basic" />
 	</LocalizedDictionary>
 	<Parameter id="35" name="title" value="Document's fragment" />
 </Inspector>
