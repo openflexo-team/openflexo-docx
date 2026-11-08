@@ -38,19 +38,11 @@
 
 package org.openflexo.technologyadapter.docx.fib;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-
-import java.io.FileNotFoundException;
 
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
-import org.openflexo.foundation.FlexoException;
-import org.openflexo.foundation.fml.FlexoConcept;
-import org.openflexo.foundation.fml.VirtualModel;
-import org.openflexo.foundation.fml.VirtualModelLibrary;
-import org.openflexo.foundation.resource.ResourceLoadingCancelledException;
 import org.openflexo.gina.swing.utils.FIBJPanel;
 import org.openflexo.rm.ResourceLocator;
 import org.openflexo.technologyadapter.docx.AbstractTestDocXInspector;
@@ -91,37 +83,14 @@ public class TestDocXTableRoleInspector extends AbstractTestDocXInspector {
 		validateFIB(fibResource);
 	}
 
-	private static DocXTableRole role;
-
 	@Test
 	@TestOrder(3)
 	@Category(UITest.class)
-	public void loadConcepts() throws FileNotFoundException, ResourceLoadingCancelledException, FlexoException {
-
-		VirtualModelLibrary vpLib = serviceManager.getVirtualModelLibrary();
-		assertNotNull(vpLib);
-		VirtualModel viewPoint = vpLib.getVirtualModel("http://openflexo.org/docx-test/TestResourceCenter/TestLibraryViewPoint2.fml");
-		assertNotNull(viewPoint);
-		VirtualModel virtualModel = viewPoint.getVirtualModelNamed("DocumentVirtualModel");
-		assertNotNull(virtualModel);
-		FlexoConcept bookDescriptionSection = virtualModel.getFlexoConcept("BookDescriptionSection");
-		assertNotNull(bookDescriptionSection);
-
-		System.out.println(virtualModel.getFMLPrettyPrint());
-
-		role = (DocXTableRole) virtualModel.getAccessibleProperty("bookListingTable");
-		System.out.println("role=" + role);
-		assertNotNull(role);
-
-		// System.out.println(role.getFragment().getFlexoDocument().debugStructuredContents());
-	}
-
-	@Test
-	@TestOrder(4)
-	@Category(UITest.class)
 	public void testInstanciateWidget() {
 
-		FIBJPanel<DocXTableRole> widget = instanciateFIB(fibResource, role, DocXTableRole.class);
+		// No VirtualModel of the test resource center declares a DocXTableRole (the role is built in Java by TestLibrary2):
+		// the inspector is instantiated without data
+		FIBJPanel<DocXTableRole> widget = instanciateFIB(fibResource, null, DocXTableRole.class);
 
 		gcDelegate.addTab("DocXTableRole", widget.getController());
 	}

@@ -102,7 +102,7 @@ public class TestDocXFragmentRoleInspector extends AbstractTestDocXInspector {
 
 		VirtualModelLibrary vpLib = serviceManager.getVirtualModelLibrary();
 		assertNotNull(vpLib);
-		VirtualModel viewPoint = vpLib.getVirtualModel("http://openflexo.org/docx-test/TestResourceCenter/TestLibraryViewPoint.fml");
+		VirtualModel viewPoint = vpLib.getVirtualModel("http://openflexo.org/docx-test/TestResourceCenter/TestLibrary.fml");
 		assertNotNull(viewPoint);
 
 		VirtualModel virtualModel = viewPoint.getVirtualModelNamed("DocumentVirtualModel");
