@@ -46,3 +46,17 @@ test covered a fragment role read from textual FML. Before CORE-F-8 the test loa
 
 **To reproduce.** From the `openflexo-dev` composite:
 `./gradlew :openflexo-docx:docx-ta-ui:cleanUiTest :openflexo-docx:docx-ta-ui:uiTest --tests '*TestDocXFragmentRoleInspector'`.
+
+### DOCX-D-3 — `TestLibrary2` fails intermittently: the template element of a text binding is null  ·  `TODO`
+
+**Symptom.** In one run of the whole `docx-ta` suite, 5 tests of `TestLibrary2` failed (`testAddNewBook`,
+`testModifySomeDataAndUpdateDocument`, `testModifyDocumentAndReinjectData` 1 to 3): a `NullPointerException` at
+`FragmentActorReference.getElementsMatchingTemplateElement` (`templateElement` is null), reached through `TextBinding` from
+`ApplyTextBindings` / `ReinjectTextBindings`, and an `assertFalse` at `TestLibrary2.java:2000` after it.
+
+**What is verified.** 2026-11-09: the run right after, on the same sources, was 165/165, and the previous runs that day too. Not
+root-caused: the template element of a text binding is resolved from the template document, possibly in an order that depends on
+loading (a concurrency or ordering issue, like CORE-D-38/39).
+
+**To reproduce.** From the `openflexo-dev` composite, run the suite several times:
+`./gradlew --continue :openflexo-docx:docx-ta:cleanTest :openflexo-docx:docx-ta:test`, and read the `Results:` line.
