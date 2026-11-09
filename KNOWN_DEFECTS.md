@@ -56,7 +56,9 @@ test covered a fragment role read from textual FML. Before CORE-F-8 the test loa
 
 **What is verified.** 2026-11-09: the run right after, on the same sources, was 165/165, and the previous runs that day too. Not
 root-caused: the template element of a text binding is resolved from the template document, possibly in an order that depends on
-loading (a concurrency or ordering issue, like CORE-D-38/39).
+loading (a concurrency or ordering issue, like CORE-D-38/39). A second time the same day, the same 5 tests failed when the suite
+ran right after nine other suites of the composite (one Gradle daemon, the machine busy), and passed run alone just after: load
+looks like the trigger.
 
 **To reproduce.** From the `openflexo-dev` composite, run the suite several times:
 `./gradlew --continue :openflexo-docx:docx-ta:cleanTest :openflexo-docx:docx-ta:test`, and read the `Results:` line.

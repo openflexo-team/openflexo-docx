@@ -67,7 +67,7 @@ import org.openflexo.foundation.fml.ActionScheme;
 import org.openflexo.foundation.fml.CreationScheme;
 import org.openflexo.foundation.fml.FMLModelFactory;
 import org.openflexo.foundation.fml.FMLTechnologyAdapter;
-import org.openflexo.foundation.fml.FlexoBehaviourParameter;
+import org.openflexo.foundation.fml.FlexoBehaviourArgument;
 import org.openflexo.foundation.fml.FlexoConcept;
 import org.openflexo.foundation.fml.FlexoRole;
 import org.openflexo.foundation.fml.VirtualModel;
@@ -165,7 +165,7 @@ public class TestLibraryUsingBookmarks extends AbstractTestDocX {
 	public static VirtualModel libraryVirtualModel;
 	public static FlexoConcept bookConcept;
 	public static CreationScheme bookCreationScheme;
-	public static FlexoBehaviourParameter titleParam, authorParam, editionParam, typeParam, descriptionParam;
+	public static FlexoBehaviourArgument titleParam, authorParam, editionParam, typeParam, descriptionParam;
 
 	public static VirtualModel documentVirtualModel;
 	public static AbstractFMLRTModelSlot<?, ?, ?> libraryModelSlot;
@@ -804,7 +804,7 @@ public class TestLibraryUsingBookmarks extends AbstractTestDocX {
 		createParameter.setParameterName("aBook");
 		createParameter.setParameterType(bookConcept.getInstanceType());
 		createParameter.doAction();
-		// Unused FlexoBehaviourParameter bookParam =
+		// Unused FlexoBehaviourArgument bookParam =
 		createParameter.getNewParameter();
 
 		CreateEditionAction createEditionAction = CreateEditionAction.actionType
@@ -1004,7 +1004,7 @@ public class TestLibraryUsingBookmarks extends AbstractTestDocX {
 		bookParam.setValue(new DataBinding<>("book"));
 		assertTrue(bookParam.getValue().isValid());*/
 
-		FlexoBehaviourParameter parameter = bookDescriptionSection.getCreationSchemes().get(0).getParameters().get(0);
+		FlexoBehaviourArgument parameter = bookDescriptionSection.getCreationSchemes().get(0).getParameters().get(0);
 		matchFlexoConceptInstance.setNewInstanceArgumentValue(parameter, new DataBinding<>("book"));
 		assertTrue(matchFlexoConceptInstance.getNewInstanceArgumentValue(parameter).isValid());
 
