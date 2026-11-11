@@ -44,7 +44,6 @@ import org.openflexo.foundation.fml.annotations.FML;
 import org.openflexo.foundation.fml.editionaction.FetchRequest;
 import org.openflexo.pamela.annotations.ImplementationClass;
 import org.openflexo.pamela.annotations.ModelEntity;
-import org.openflexo.pamela.annotations.XMLElement;
 import org.openflexo.technologyadapter.docx.DocXModelSlot;
 import org.openflexo.technologyadapter.docx.model.DocXDocument;
 import org.openflexo.technologyadapter.docx.model.DocXParagraph;
@@ -57,7 +56,6 @@ import org.openflexo.technologyadapter.docx.model.DocXParagraph;
  */
 @ModelEntity
 @ImplementationClass(SelectDocXParagraph.AbstractSelectDocXParagraphImpl.class)
-@XMLElement
 @FML("SelectDocXParagraph")
 public interface SelectDocXParagraph
 		extends AbstractSelectDocXParagraph<List<DocXParagraph>>, FetchRequest<DocXModelSlot, DocXDocument, DocXParagraph> {

@@ -514,7 +514,7 @@ public class TestLibrary extends AbstractTestDocX {
 
 		libraryVirtualModel.getResource().save();
 
-		System.out.println(libraryVirtualModel.getFMLModelFactory().stringRepresentation(libraryVirtualModel));
+		System.out.println(libraryVirtualModel.getFMLPrettyPrint());
 
 		System.err.println("libraryVirtualModel/FML:");
 		System.err.println(libraryVirtualModel.getCompilationUnit().getFMLPrettyPrint());
@@ -643,7 +643,7 @@ public class TestLibrary extends AbstractTestDocX {
 
 		documentVirtualModel.getResource().save();
 
-		System.out.println(documentVirtualModel.getFMLModelFactory().stringRepresentation(documentVirtualModel));
+		System.out.println(documentVirtualModel.getFMLPrettyPrint());
 
 		System.err.println("documentVirtualModel/FML:");
 		System.err.println(documentVirtualModel.getCompilationUnit().getFMLPrettyPrint());

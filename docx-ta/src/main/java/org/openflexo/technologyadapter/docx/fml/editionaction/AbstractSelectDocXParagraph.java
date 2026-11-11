@@ -59,7 +59,6 @@ public interface AbstractSelectDocXParagraph<AT> extends AbstractFetchRequest<Do
 	public static final String EXCEL_SHEET_KEY = "excelSheet";
 	
 	@Getter(value = EXCEL_SHEET_KEY)
-	@XMLAttribute
 	public DataBinding<ExcelSheet> getExcelSheet();
 	
 	@Setter(EXCEL_SHEET_KEY)

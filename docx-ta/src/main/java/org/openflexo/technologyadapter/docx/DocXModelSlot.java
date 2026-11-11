@@ -41,8 +41,6 @@ import org.openflexo.pamela.annotations.ImplementationClass;
 import org.openflexo.pamela.annotations.ModelEntity;
 import org.openflexo.pamela.annotations.PropertyIdentifier;
 import org.openflexo.pamela.annotations.Setter;
-import org.openflexo.pamela.annotations.XMLAttribute;
-import org.openflexo.pamela.annotations.XMLElement;
 import org.openflexo.technologyadapter.docx.fml.DocXFragmentRole;
 import org.openflexo.technologyadapter.docx.fml.DocXImageRole;
 import org.openflexo.technologyadapter.docx.fml.DocXParagraphRole;
@@ -85,7 +83,6 @@ import org.openflexo.technologyadapter.docx.rm.DocXDocumentResource;
 		TextSelectionActorReference.class })
 @ModelEntity
 @ImplementationClass(DocXModelSlot.DocXModelSlotImpl.class)
-@XMLElement
 @FML("DocXModelSlot")
 public interface DocXModelSlot extends FlexoDocumentModelSlot<DocXDocument, DocXDocumentResource, DocXTechnologyAdapter> {
 
@@ -96,7 +93,6 @@ public interface DocXModelSlot extends FlexoDocumentModelSlot<DocXDocument, DocX
 	public static final String ID_STRATEGY_KEY = "idStrategy";
 
 	@Getter(ID_STRATEGY_KEY)
-	@XMLAttribute
 	public IdentifierManagementStrategy getIdStrategy();
 
 	@Setter(ID_STRATEGY_KEY)

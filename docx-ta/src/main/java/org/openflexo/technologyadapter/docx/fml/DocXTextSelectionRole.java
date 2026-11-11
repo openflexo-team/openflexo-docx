@@ -28,13 +28,11 @@ import org.openflexo.foundation.fml.annotations.FML;
 import org.openflexo.foundation.technologyadapter.TechnologyAdapter;
 import org.openflexo.pamela.annotations.ImplementationClass;
 import org.openflexo.pamela.annotations.ModelEntity;
-import org.openflexo.pamela.annotations.XMLElement;
 import org.openflexo.technologyadapter.docx.DocXTechnologyAdapter;
 import org.openflexo.technologyadapter.docx.model.DocXDocument;
 
 @ModelEntity
 @ImplementationClass(DocXTextSelectionRole.DocXTextSelectionRoleImpl.class)
-@XMLElement
 @FML("DocXTextSelectionRole")
 public interface DocXTextSelectionRole extends TextSelectionRole<DocXDocument, DocXTechnologyAdapter> {
 

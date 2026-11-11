@@ -57,8 +57,6 @@ import org.openflexo.pamela.annotations.ImplementationClass;
 import org.openflexo.pamela.annotations.ModelEntity;
 import org.openflexo.pamela.annotations.PropertyIdentifier;
 import org.openflexo.pamela.annotations.Setter;
-import org.openflexo.pamela.annotations.XMLAttribute;
-import org.openflexo.pamela.annotations.XMLElement;
 import org.openflexo.technologyadapter.docx.DocXModelSlot;
 import org.openflexo.technologyadapter.docx.DocXTechnologyAdapter;
 import org.openflexo.technologyadapter.docx.fml.DocXFragmentRole;
@@ -73,7 +71,6 @@ import org.openflexo.technologyadapter.docx.model.DocXFragment;
  */
 @ModelEntity
 @ImplementationClass(SelectGeneratedDocXFragment.SelectGeneratedDocXFragmentImpl.class)
-@XMLElement
 @FML("SelectGeneratedDocXFragment")
 public interface SelectGeneratedDocXFragment extends DocXFragmentAction {
 
@@ -90,7 +87,6 @@ public interface SelectGeneratedDocXFragment extends DocXFragmentAction {
 	 * @return
 	 */
 	@Getter(value = TEMPLATE_FRAGMENT_KEY, isStringConvertable = true)
-	@XMLAttribute
 	public DocXFragment getTemplateFragment();
 
 	/**
@@ -108,7 +104,6 @@ public interface SelectGeneratedDocXFragment extends DocXFragmentAction {
 	 * @return
 	 */
 	@Getter(value = DOCUMENT_FRAGMENT_KEY)
-	@XMLAttribute
 	public DataBinding<DocXFragment> getDocumentFragment();
 
 	/**

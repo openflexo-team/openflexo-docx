@@ -46,12 +46,10 @@ import org.openflexo.foundation.fml.rt.FMLExecutionException;
 import org.openflexo.foundation.fml.rt.RunTimeEvaluationContext;
 import org.openflexo.pamela.annotations.ImplementationClass;
 import org.openflexo.pamela.annotations.ModelEntity;
-import org.openflexo.pamela.annotations.XMLElement;
 import org.openflexo.technologyadapter.docx.model.DocXTable;
 
 @ModelEntity
 @ImplementationClass(ReinjectFromDocXTable.ReinjectFromDocXTableImpl.class)
-@XMLElement
 @FML("ReinjectFromDocXTable")
 public interface ReinjectFromDocXTable extends DocXTableAction {
 

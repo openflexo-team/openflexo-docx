@@ -54,7 +54,6 @@ import org.openflexo.foundation.resource.FlexoResourceCenter;
 import org.openflexo.foundation.resource.ResourceLoadingCancelledException;
 import org.openflexo.pamela.annotations.ImplementationClass;
 import org.openflexo.pamela.annotations.ModelEntity;
-import org.openflexo.pamela.annotations.XMLElement;
 import org.openflexo.technologyadapter.docx.DocXModelSlot;
 import org.openflexo.technologyadapter.docx.DocXTechnologyAdapter;
 import org.openflexo.technologyadapter.docx.model.DocXDocument;
@@ -69,7 +68,6 @@ import org.openflexo.technologyadapter.docx.rm.DocXDocumentResource;
  */
 @ModelEntity
 @ImplementationClass(CreateEmptyDocXResource.CreateDocXResourceImpl.class)
-@XMLElement
 @FML("CreateEmptyDocXResource")
 public interface CreateEmptyDocXResource extends AbstractCreateResource<DocXModelSlot, DocXDocument, DocXTechnologyAdapter> {
 

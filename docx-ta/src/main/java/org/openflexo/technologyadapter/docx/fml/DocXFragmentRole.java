@@ -31,8 +31,6 @@ import org.openflexo.pamela.annotations.Getter;
 import org.openflexo.pamela.annotations.ImplementationClass;
 import org.openflexo.pamela.annotations.ModelEntity;
 import org.openflexo.pamela.annotations.Setter;
-import org.openflexo.pamela.annotations.XMLAttribute;
-import org.openflexo.pamela.annotations.XMLElement;
 import org.openflexo.pamela.exceptions.InvalidDataException;
 import org.openflexo.technologyadapter.docx.DocXTechnologyAdapter;
 import org.openflexo.technologyadapter.docx.model.DocXDocument;
@@ -40,7 +38,6 @@ import org.openflexo.technologyadapter.docx.model.DocXFragment;
 
 @ModelEntity
 @ImplementationClass(DocXFragmentRole.DocXFragmentRoleImpl.class)
-@XMLElement
 @FML("DocXFragmentRole")
 public interface DocXFragmentRole extends FlexoFragmentRole<DocXFragment, DocXDocument, DocXTechnologyAdapter> {
 
@@ -55,7 +52,6 @@ public interface DocXFragmentRole extends FlexoFragmentRole<DocXFragment, DocXDo
 	 */
 	@Override
 	@Getter(value = FRAGMENT_KEY, isStringConvertable = true)
-	@XMLAttribute
 	@FMLAttribute(FRAGMENT_KEY)
 	public DocXFragment getFragment();
 

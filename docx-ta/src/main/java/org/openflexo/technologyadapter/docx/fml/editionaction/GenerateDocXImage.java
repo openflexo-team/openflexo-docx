@@ -47,12 +47,10 @@ import org.openflexo.foundation.fml.rt.RunTimeEvaluationContext;
 import org.openflexo.foundation.nature.ScreenshotService.CouldNotGenerateScreenshotException;
 import org.openflexo.pamela.annotations.ImplementationClass;
 import org.openflexo.pamela.annotations.ModelEntity;
-import org.openflexo.pamela.annotations.XMLElement;
 import org.openflexo.technologyadapter.docx.model.DocXDrawingRun;
 
 @ModelEntity
 @ImplementationClass(GenerateDocXImage.GenerateDocXImageImpl.class)
-@XMLElement
 @FML("GenerateDocXImage")
 public interface GenerateDocXImage extends DocXImageAction {
 

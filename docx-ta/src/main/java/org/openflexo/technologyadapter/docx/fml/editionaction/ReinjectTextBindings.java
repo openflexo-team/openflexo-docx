@@ -46,12 +46,10 @@ import org.openflexo.foundation.fml.rt.FMLExecutionException;
 import org.openflexo.foundation.fml.rt.RunTimeEvaluationContext;
 import org.openflexo.pamela.annotations.ImplementationClass;
 import org.openflexo.pamela.annotations.ModelEntity;
-import org.openflexo.pamela.annotations.XMLElement;
 import org.openflexo.technologyadapter.docx.model.DocXFragment;
 
 @ModelEntity
 @ImplementationClass(ReinjectTextBindings.ReinjectTextBindingsImpl.class)
-@XMLElement
 @FML("ReinjectTextBindings")
 public interface ReinjectTextBindings extends DocXFragmentAction {
 

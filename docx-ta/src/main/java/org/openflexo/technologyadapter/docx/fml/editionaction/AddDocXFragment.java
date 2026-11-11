@@ -44,8 +44,6 @@ import org.openflexo.pamela.annotations.ImplementationClass;
 import org.openflexo.pamela.annotations.ModelEntity;
 import org.openflexo.pamela.annotations.PropertyIdentifier;
 import org.openflexo.pamela.annotations.Setter;
-import org.openflexo.pamela.annotations.XMLAttribute;
-import org.openflexo.pamela.annotations.XMLElement;
 import org.openflexo.technologyadapter.docx.DocXModelSlot;
 import org.openflexo.technologyadapter.docx.fml.DocXFragmentRole;
 import org.openflexo.technologyadapter.docx.model.DocXDocument;
@@ -60,7 +58,6 @@ import org.openflexo.technologyadapter.docx.model.DocXFragment;
  */
 @ModelEntity
 @ImplementationClass(AddDocXFragment.AddDocXFragmentImpl.class)
-@XMLElement
 @FML(
 		value = "AddDocXFragment",
 		description = "<html>This edition primitive allows to insert a template fragment in a docx document</html>",
@@ -84,7 +81,6 @@ public interface AddDocXFragment extends TechnologySpecificActionDefiningReceive
 	 * @return
 	 */
 	@Getter(value = FRAGMENT_KEY, isStringConvertable = true)
-	@XMLAttribute
 	@FMLAttribute(FRAGMENT_KEY)
 	public DocXFragment getFragment();
 
@@ -97,7 +93,6 @@ public interface AddDocXFragment extends TechnologySpecificActionDefiningReceive
 	public void setFragment(DocXFragment fragment);
 
 	@Getter(value = LOCATION_KEY)
-	@XMLAttribute
 	@FMLAttribute(value = LOCATION_KEY, required = true, description = "<html>location where the fragment will be inserted</html>")
 	public DataBinding<? extends FlexoDocElement<?, ?>> getLocation();
 
@@ -105,7 +100,6 @@ public interface AddDocXFragment extends TechnologySpecificActionDefiningReceive
 	public void setLocation(DataBinding<? extends FlexoDocElement<?, ?>> element);
 
 	@Getter(value = LOCATION_SEMANTICS_KEY)
-	@XMLAttribute
 	@FMLAttribute(
 			value = LOCATION_SEMANTICS_KEY,
 			required = true,

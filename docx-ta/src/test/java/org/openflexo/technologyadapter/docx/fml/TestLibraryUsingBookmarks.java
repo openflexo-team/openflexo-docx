@@ -543,7 +543,7 @@ public class TestLibraryUsingBookmarks extends AbstractTestDocX {
 
 		libraryVirtualModel.getResource().save();
 
-		System.out.println(libraryVirtualModel.getFMLModelFactory().stringRepresentation(libraryVirtualModel));
+		System.out.println(libraryVirtualModel.getFMLPrettyPrint());
 
 		System.out.println("FML:");
 		System.out.println(libraryVirtualModel.getFMLPrettyPrint());
@@ -672,7 +672,7 @@ public class TestLibraryUsingBookmarks extends AbstractTestDocX {
 
 		documentVirtualModel.getResource().save();
 
-		System.out.println(documentVirtualModel.getFMLModelFactory().stringRepresentation(documentVirtualModel));
+		System.out.println(documentVirtualModel.getFMLPrettyPrint());
 
 		System.out.println("FML:");
 		System.out.println(documentVirtualModel.getFMLPrettyPrint());

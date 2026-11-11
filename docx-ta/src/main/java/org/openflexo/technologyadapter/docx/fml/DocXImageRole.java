@@ -28,7 +28,6 @@ import org.openflexo.foundation.fml.annotations.FML;
 import org.openflexo.foundation.technologyadapter.TechnologyAdapter;
 import org.openflexo.pamela.annotations.ImplementationClass;
 import org.openflexo.pamela.annotations.ModelEntity;
-import org.openflexo.pamela.annotations.XMLElement;
 import org.openflexo.technologyadapter.docx.DocXTechnologyAdapter;
 import org.openflexo.technologyadapter.docx.model.DocXDocument;
 import org.openflexo.technologyadapter.docx.model.DocXDrawingRun;
@@ -37,7 +36,6 @@ import org.openflexo.technologyadapter.docx.model.DocXFragment;
 
 @ModelEntity
 @ImplementationClass(DocXImageRole.DocXImageRoleImpl.class)
-@XMLElement
 @FML("DocXImageRole")
 public interface DocXImageRole extends FlexoImageRole<DocXDrawingRun, DocXDocument, DocXTechnologyAdapter> {
 

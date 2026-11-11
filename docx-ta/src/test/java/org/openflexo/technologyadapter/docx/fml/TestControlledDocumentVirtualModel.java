@@ -387,7 +387,7 @@ public class TestControlledDocumentVirtualModel extends AbstractTestDocX {
 
 		virtualModel.getResource().save();
 
-		System.out.println(virtualModel.getFMLModelFactory().stringRepresentation(virtualModel));
+		System.out.println(virtualModel.getFMLPrettyPrint());
 
 		assertTrue(virtualModel.hasNature(FMLControlledDocXVirtualModelNature.INSTANCE));
 		assertEquals(docXModelSlot, FMLControlledDocXVirtualModelNature.getDocumentModelSlot(virtualModel));

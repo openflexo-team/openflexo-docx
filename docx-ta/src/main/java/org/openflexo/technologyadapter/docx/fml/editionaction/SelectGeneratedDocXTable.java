@@ -57,8 +57,6 @@ import org.openflexo.pamela.annotations.ImplementationClass;
 import org.openflexo.pamela.annotations.ModelEntity;
 import org.openflexo.pamela.annotations.PropertyIdentifier;
 import org.openflexo.pamela.annotations.Setter;
-import org.openflexo.pamela.annotations.XMLAttribute;
-import org.openflexo.pamela.annotations.XMLElement;
 import org.openflexo.technologyadapter.docx.DocXModelSlot;
 import org.openflexo.technologyadapter.docx.DocXTechnologyAdapter;
 import org.openflexo.technologyadapter.docx.fml.DocXTableRole;
@@ -74,7 +72,6 @@ import org.openflexo.technologyadapter.docx.model.DocXTable;
  */
 @ModelEntity
 @ImplementationClass(SelectGeneratedDocXTable.SelectGeneratedDocXTableImpl.class)
-@XMLElement
 @FML("SelectGeneratedDocXTable")
 public interface SelectGeneratedDocXTable extends DocXTableAction {
 
@@ -91,7 +88,6 @@ public interface SelectGeneratedDocXTable extends DocXTableAction {
 	 * @return
 	 */
 	@Getter(TABLE_ID_KEY)
-	@XMLAttribute
 	@FMLAttribute(TABLE_ID_KEY)
 	public String getTableId();
 
@@ -110,7 +106,6 @@ public interface SelectGeneratedDocXTable extends DocXTableAction {
 	 * @return
 	 */
 	@Getter(value = DOCUMENT_FRAGMENT_KEY)
-	@XMLAttribute
 	@FMLAttribute(DOCUMENT_FRAGMENT_KEY)
 	public DataBinding<DocXFragment> getDocumentFragment();
 

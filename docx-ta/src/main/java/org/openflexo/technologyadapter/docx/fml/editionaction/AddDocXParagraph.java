@@ -27,7 +27,6 @@ import org.openflexo.foundation.fml.editionaction.TechnologySpecificActionDefini
 import org.openflexo.foundation.fml.rt.RunTimeEvaluationContext;
 import org.openflexo.pamela.annotations.ImplementationClass;
 import org.openflexo.pamela.annotations.ModelEntity;
-import org.openflexo.pamela.annotations.XMLElement;
 import org.openflexo.technologyadapter.docx.DocXModelSlot;
 import org.openflexo.technologyadapter.docx.model.DocXDocument;
 import org.openflexo.technologyadapter.docx.model.DocXParagraph;
@@ -41,7 +40,6 @@ import org.openflexo.technologyadapter.docx.model.DocXParagraph;
 
 @ModelEntity
 @ImplementationClass(AddDocXParagraph.AddDocXParagraphImpl.class)
-@XMLElement
 public interface AddDocXParagraph extends TechnologySpecificActionDefiningReceiver<DocXModelSlot, DocXDocument, DocXParagraph> {
 
 	public static abstract class AddDocXParagraphImpl

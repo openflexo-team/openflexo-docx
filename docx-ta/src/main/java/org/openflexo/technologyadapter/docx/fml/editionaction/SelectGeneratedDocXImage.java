@@ -58,8 +58,6 @@ import org.openflexo.pamela.annotations.ImplementationClass;
 import org.openflexo.pamela.annotations.ModelEntity;
 import org.openflexo.pamela.annotations.PropertyIdentifier;
 import org.openflexo.pamela.annotations.Setter;
-import org.openflexo.pamela.annotations.XMLAttribute;
-import org.openflexo.pamela.annotations.XMLElement;
 import org.openflexo.technologyadapter.docx.DocXModelSlot;
 import org.openflexo.technologyadapter.docx.DocXTechnologyAdapter;
 import org.openflexo.technologyadapter.docx.fml.DocXImageRole;
@@ -76,7 +74,6 @@ import org.openflexo.technologyadapter.docx.model.DocXParagraph;
  */
 @ModelEntity
 @ImplementationClass(SelectGeneratedDocXImage.SelectGeneratedDocXImageImpl.class)
-@XMLElement
 @FML("SelectGeneratedDocXImage")
 public interface SelectGeneratedDocXImage extends DocXImageAction {
 
@@ -96,7 +93,6 @@ public interface SelectGeneratedDocXImage extends DocXImageAction {
 	 * @return
 	 */
 	@Getter(PARAGRAPH_ID_KEY)
-	@XMLAttribute
 	@FMLAttribute(PARAGRAPH_ID_KEY)
 	public String getParagraphIdentifier();
 
@@ -114,7 +110,6 @@ public interface SelectGeneratedDocXImage extends DocXImageAction {
 	 * @return
 	 */
 	@Getter(value = RUN_INDEX_KEY, defaultValue = "-1")
-	@XMLAttribute
 	@FMLAttribute(RUN_INDEX_KEY)
 	public int getRunIndex();
 
@@ -133,7 +128,6 @@ public interface SelectGeneratedDocXImage extends DocXImageAction {
 	 * @return
 	 */
 	@Getter(value = DOCUMENT_FRAGMENT_KEY)
-	@XMLAttribute
 	@FMLAttribute(DOCUMENT_FRAGMENT_KEY)
 	public DataBinding<DocXFragment> getDocumentFragment();
 
