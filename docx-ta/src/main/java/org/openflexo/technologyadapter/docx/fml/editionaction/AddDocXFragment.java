@@ -37,7 +37,7 @@ import org.openflexo.foundation.fml.annotations.FMLAttribute.AttributeKind;
 import org.openflexo.foundation.fml.annotations.SeeAlso;
 import org.openflexo.foundation.fml.annotations.UsageExample;
 import org.openflexo.foundation.fml.editionaction.TechnologySpecificActionDefiningReceiver;
-import org.openflexo.foundation.fml.rt.FMLExecutionException;
+import org.openflexo.foundation.fml.rt.error.FMLExecutionException;
 import org.openflexo.foundation.fml.rt.RunTimeEvaluationContext;
 import org.openflexo.pamela.annotations.Getter;
 import org.openflexo.pamela.annotations.ImplementationClass;
